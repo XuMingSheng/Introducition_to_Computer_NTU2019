@@ -16,10 +16,10 @@ class Canvas{
         let key = 0;
         do Canvas.draw_button(150, 100, 245, 130);
         do Output.moveCursor(10, 20);
-        do Output.printString("START");
+        do Output.printString("START (Press Enter)");
         do Canvas.draw_button(150, 145, 315, 175);
         do Output.moveCursor(14, 20);
-        do Output.printString("SELECT LEVEL");
+        do Output.printString("SELECT LEVEL (Press Space)");
         let mode = 0;
         let arrow_y = 115;
         do Screen.setColor(true);
