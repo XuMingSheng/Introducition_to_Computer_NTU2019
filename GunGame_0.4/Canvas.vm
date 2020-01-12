@@ -41,14 +41,14 @@ call Screen.drawRectangle 4
 pop temp 0
 push constant 0
 pop local 0
-push constant 150
+push constant 50
 push constant 100
-push constant 245
+push constant 220
 push constant 130
 call Canvas.draw_button 4
 pop temp 0
 push constant 10
-push constant 20
+push constant 8
 call Output.moveCursor 2
 pop temp 0
 push constant 19
@@ -93,14 +93,14 @@ push constant 41
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-push constant 150
+push constant 50
 push constant 145
-push constant 315
+push constant 280
 push constant 175
 call Canvas.draw_button 4
 pop temp 0
 push constant 14
-push constant 20
+push constant 8
 call Output.moveCursor 2
 pop temp 0
 push constant 26
@@ -167,7 +167,7 @@ push constant 0
 not
 call Screen.setColor 1
 pop temp 0
-push constant 125
+push constant 25
 push local 2
 push constant 10
 call Screen.drawCircle 3
@@ -204,7 +204,7 @@ label IF_FALSE1
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push constant 125
+push constant 25
 push local 2
 push constant 10
 call Screen.drawCircle 3
@@ -226,7 +226,7 @@ push constant 0
 not
 call Screen.setColor 1
 pop temp 0
-push constant 125
+push constant 25
 push local 2
 push constant 10
 call Screen.drawCircle 3
@@ -254,7 +254,7 @@ label IF_FALSE4
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push constant 125
+push constant 25
 push local 2
 push constant 10
 call Screen.drawCircle 3
@@ -276,7 +276,7 @@ push constant 0
 not
 call Screen.setColor 1
 pop temp 0
-push constant 125
+push constant 25
 push local 2
 push constant 10
 call Screen.drawCircle 3
