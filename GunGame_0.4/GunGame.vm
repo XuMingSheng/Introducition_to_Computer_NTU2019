@@ -1800,14 +1800,25 @@ push constant 0
 not
 not
 if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 140
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
 push this 7
 push constant 25
 call Math_f.mod 2
 push constant 0
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push this 8
 call Vector.x 1
 push this 8
@@ -1870,7 +1881,7 @@ pop temp 0
 push pointer 0
 call GunGame.update_location 1
 pop temp 0
-label IF_FALSE0
+label IF_FALSE1
 push this 0
 call Player.x 1
 push this 8
@@ -1888,12 +1899,12 @@ call Math_f.abs 1
 push constant 5
 lt
 and
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push this 0
 return
-label IF_FALSE1
+label IF_FALSE2
 push this 7
 push constant 1
 add
@@ -1910,9 +1921,9 @@ push this 10
 call Math_f.mod 2
 push constant 0
 eq
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push this 7
 push this 10
 call Math.divide 2
@@ -1935,7 +1946,7 @@ push local 1
 push constant 1
 add
 pop local 1
-label IF_FALSE2
+label IF_FALSE3
 label WHILE_EXP1
 push this 7
 push constant 10000
@@ -1971,12 +1982,12 @@ push this 0
 call Player.life 1
 push constant 1
 lt
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push this 0
 return
-label IF_FALSE3
+label IF_FALSE4
 push pointer 0
 call GunGame.player_shoot 1
 pop temp 0
@@ -2019,9 +2030,9 @@ label WHILE_END3
 push local 1
 push this 6
 lt
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
 push local 1
 push this 3
 add
@@ -2033,9 +2044,9 @@ push local 2
 call GunGame.bullet_move 2
 push constant 0
 eq
-if-goto IF_TRUE5
-goto IF_FALSE5
-label IF_TRUE5
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
 push local 2
 push constant 0
 call Bullet.appear 2
@@ -2051,8 +2062,8 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
+label IF_FALSE6
 label IF_FALSE5
-label IF_FALSE4
 push local 1
 push constant 1
 add
@@ -2090,9 +2101,9 @@ label WHILE_END5
 push local 1
 push this 4
 lt
-if-goto IF_TRUE6
-goto IF_FALSE6
-label IF_TRUE6
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
 push pointer 0
 push local 1
 push this 1
@@ -2101,7 +2112,7 @@ pop pointer 1
 push that 0
 call GunGame.zombie_move 2
 pop temp 0
-label IF_FALSE6
+label IF_FALSE7
 push local 1
 push constant 1
 add

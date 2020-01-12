@@ -420,6 +420,8 @@ class GunGame {
         do Output.printString("Counter:");
 
         while(true) {
+            let key = Keyboard.keyPressed();
+            if(key = 140) {return null;}
             if(Math_f.mod(game_time, 25) = 0) {
                 do Canvas.draw_ladder(ladder.x(), ladder.y(), true);
                 do Canvas.draw_blood_type1(300, 50, true);
