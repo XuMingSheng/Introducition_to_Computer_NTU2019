@@ -122,6 +122,24 @@ class Canvas{
         do Sys.wait(1000);
         return;
     }
+    function void win_scene() {
+        var int key;
+        do Screen.setColor(false);
+        do Screen.drawRectangle(0, 0, 511, 255);
+        do Output.moveCursor(10, 18);
+        do Output.printString("You Win !!!");
+        do Canvas.draw_button(55, 200, 210, 225);
+        do Output.moveCursor(19, 8);
+        do Output.printString("Back (Press [Esc])");
+        let key = 0;
+        while(key = 0) {
+            let key = Keyboard.keyPressed();
+            if((key = 140) = false) {let key = 0;}
+        }
+        do Screen.setColor(false);
+        do Screen.drawRectangle(0, 0, 511, 255);
+        return;
+    }
     function void draw_ladder(int x, int y, bool t){
         let x = x - 12; let y = y - 12;
         //hole
