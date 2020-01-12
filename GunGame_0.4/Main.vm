@@ -1,134 +1,165 @@
 function Main.main 6
 push constant 0
 pop local 4
+push constant 0
+pop local 5
 label WHILE_EXP0
 push constant 0
 not
 not
 if-goto WHILE_END0
-push local 4
-push constant 1
-add
-pop local 4
-push local 4
-push constant 2
-lt
+push local 5
+push constant 0
+eq
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 call Canvas.initial_scene 0
 pop local 5
-goto IF_END0
-label IF_FALSE0
-push local 4
-call Canvas.next_level_scene 1
-pop temp 0
-label IF_END0
-push local 4
-push constant 2
-lt
-push local 5
-push constant 1
-eq
-and
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
-call Canvas.select_level_scene 0
-pop local 4
 push constant 40
 pop local 2
 push constant 0
 pop local 3
-label IF_FALSE1
-push local 4
+label IF_FALSE0
+push local 5
 push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 4
+push constant 0
 eq
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
-push constant 40
-push constant 0
-call GunGame.new_level1 2
-pop local 0
+push constant 1
+pop local 4
+goto IF_END2
 label IF_FALSE2
 push local 4
+push constant 1
+add
+pop local 4
+push local 4
+call Canvas.next_level_scene 1
+pop temp 0
+label IF_END2
+label IF_FALSE1
+push local 5
 push constant 2
 eq
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
-push local 2
-push local 3
-call GunGame.new_level2 2
-pop local 0
-label IF_FALSE3
+call Canvas.select_level_scene 0
+pop local 4
 push local 4
-push constant 3
-eq
+push constant 8
+gt
 if-goto IF_TRUE4
 goto IF_FALSE4
 label IF_TRUE4
-push local 2
-push local 3
-call GunGame.new_level3 2
-pop local 0
+push constant 0
+pop local 4
+push constant 0
+pop local 5
 label IF_FALSE4
+label IF_FALSE3
 push local 4
-push constant 4
+push constant 1
 eq
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
 push local 2
 push local 3
-call GunGame.new_level4 2
+call GunGame.new_level1 2
 pop local 0
 label IF_FALSE5
 push local 4
-push constant 5
+push constant 2
 eq
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
 push local 2
 push local 3
-call GunGame.new_level5 2
+call GunGame.new_level2 2
 pop local 0
 label IF_FALSE6
 push local 4
-push constant 6
+push constant 3
 eq
 if-goto IF_TRUE7
 goto IF_FALSE7
 label IF_TRUE7
 push local 2
 push local 3
-call GunGame.new_level6 2
+call GunGame.new_level3 2
 pop local 0
 label IF_FALSE7
 push local 4
-push constant 7
+push constant 4
 eq
 if-goto IF_TRUE8
 goto IF_FALSE8
 label IF_TRUE8
 push local 2
 push local 3
-call GunGame.new_level7 2
+call GunGame.new_level4 2
 pop local 0
 label IF_FALSE8
 push local 4
-push constant 8
+push constant 5
 eq
 if-goto IF_TRUE9
 goto IF_FALSE9
 label IF_TRUE9
 push local 2
 push local 3
-call GunGame.new_level8 2
+call GunGame.new_level5 2
 pop local 0
 label IF_FALSE9
+push local 4
+push constant 6
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push local 2
+push local 3
+call GunGame.new_level6 2
+pop local 0
+label IF_FALSE10
+push local 4
+push constant 7
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push local 2
+push local 3
+call GunGame.new_level7 2
+pop local 0
+label IF_FALSE11
+push local 4
+push constant 8
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push local 2
+push local 3
+call GunGame.new_level8 2
+pop local 0
+label IF_FALSE12
+push local 4
+push constant 0
+gt
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
 push local 0
 call GunGame.run 1
 pop local 1
@@ -148,14 +179,17 @@ push local 2
 push constant 0
 eq
 or
-if-goto IF_TRUE10
-goto IF_FALSE10
-label IF_TRUE10
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
 call Canvas.game_over 0
 pop temp 0
 push constant 0
 pop local 4
-label IF_FALSE10
+push constant 0
+pop local 5
+label IF_FALSE14
+label IF_FALSE13
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0

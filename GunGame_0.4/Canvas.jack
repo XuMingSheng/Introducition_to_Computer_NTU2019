@@ -10,57 +10,53 @@ class Canvas{
     }
     function int initial_scene() {
         var int key, mode;
-        var int arrow_y;
         do Screen.setColor(false);
         do Screen.drawRectangle(0, 0, 511, 255); 
         let key = 0;
-        do Canvas.draw_button(50, 100, 220, 130);
+        do Canvas.draw_button(50, 100, 240, 130);
         do Output.moveCursor(10, 8);
-        do Output.printString("START (Press Enter)");
-        do Canvas.draw_button(50, 145, 280, 175);
+        do Output.printString("START (Press [Enter])");
+        do Canvas.draw_button(50, 145, 290, 175);
         do Output.moveCursor(14, 8);
-        do Output.printString("SELECT LEVEL (Press Space)");
+        do Output.printString("SELECT LEVEL (Press [Space])");
+        do Canvas.draw_button(50, 190, 270, 220);
+        do Output.moveCursor(18, 8);
+        do Output.printString("INSTRUCTIONS (Press [i])");
         let mode = 0;
-        let arrow_y = 115;
-        do Screen.setColor(true);
-        do Screen.drawCircle(25, arrow_y, 10);
-        while((key = 128) = false) {
+        while((key = 0)) {
             let key = Keyboard.keyPressed();
-            if(key = 131) {
-                let mode = mode - 1;
-                if(mode < 0) {let mode = 0;}
-                do Screen.setColor(false);
-                do Screen.drawCircle(25, arrow_y, 10);
-                let arrow_y = arrow_y + 45; 
-                if(arrow_y > 160) {let arrow_y = 115;}
-                do Screen.setColor(true);
-                do Screen.drawCircle(25, arrow_y, 10);
-            }
-            if(key = 133) {
-                let mode = mode + 1;
-                if(mode > 1) {let mode = 0;}
-                do Screen.setColor(false);
-                do Screen.drawCircle(25, arrow_y, 10);
-                let arrow_y = arrow_y - 45; 
-                if(arrow_y < 115) {let arrow_y = 160;}
-                do Screen.setColor(true);
-                do Screen.drawCircle(25, arrow_y, 10);
-            }
-            do Sys.wait(100);
-        }
+            if(key = 128) {let mode = 1;}
+            if(key = 32) {let mode = 2;}
+            if(key = 105) {let mode = 3;}
+            if(mode = 0) {let key = 0;} 
+        } 
         do Screen.setColor(false);
         do Screen.drawRectangle(0, 0, 511, 255);
+        do Sys.wait(100);
         return mode;
     }
     function int select_level_scene() {
-        var int key;
+        var int key, i;
         do Screen.setColor(false);
         do Screen.drawRectangle(0, 0, 511, 255);
+        do Output.moveCursor(8, 12);
+        do Output.printString("Press [1] ~ [9] to select the level");
+        do Canvas.draw_button(55, 200, 210, 225);
+        do Output.moveCursor(19, 8);
+        do Output.printString("Back (Press [Esc])");
+        let i = 0;
+        while(i < 9) {
+            do Canvas.draw_button(55 + (i * 48), 120, 80 + (i * 48), 145);
+            do Output.moveCursor(12, 8 + (i * 6));
+            do Output.printInt(i + 1);
+            let i = i + 1;
+        }
         let key = 0;
-        do Output.moveCursor(15, 12);
-        do Output.printString("Press 1 ~ 9 to select the level");
         while(key = 0) {
             let key = Keyboard.keyPressed();
+            if((key < 49) | (key > 57) & ((key = 140) = false)) {
+                let key = 0;
+            }
         }
         do Screen.setColor(false);
         do Screen.drawRectangle(0, 0, 511, 255);

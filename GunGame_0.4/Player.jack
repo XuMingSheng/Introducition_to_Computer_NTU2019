@@ -78,7 +78,7 @@ class Player {
         if((zombie = null) = false) { 
             //do retrieve(Math_f.norm(position.x() - zombie.x()), Math_f.norm(position.y() - zombie.y()));
             //do appear(false);
-           // do add_life(-1);
+            do add_life(-1);
             //if((life < 0) | (life = 0)) {return zombie;}
             //do appear(true);
             return zombie;
