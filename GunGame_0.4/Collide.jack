@@ -1,0 +1,67 @@
+
+class Collide {
+    
+    function bool collide(int dis_x, int dis_y, int collide_radius) {
+        if((dis_x < collide_radius) & (dis_y < collide_radius)) {
+            return true;
+        }
+        return false;
+    }
+    function Player collide_with_player(int x, int y, int radius, Player player) {
+        var int dis_x, dis_y;
+        let dis_x = Math_f.abs(x - player.x());
+        let dis_y = Math_f.abs(y - player.y());
+        if(Collide.collide(dis_x, dis_y, radius + player.radius())) {
+            return player;
+        }
+        return null;
+    }
+    function Zombie collide_with_zombie(int x, int y, int radius, Array zombie_array, int zombie_num) {
+        var int i;
+        var int dis_x, dis_y;
+        var Zombie zombie;
+        let i = 0;
+        while(i < zombie_num) {
+            while((i < zombie_num) & (zombie_array[i] = null)) {
+                let i = i + 1;
+            } 
+            if(i = zombie_num) {return null;}
+            let zombie = zombie_array[i];
+            let dis_x = Math_f.abs(x - zombie.x());
+            let dis_y = Math_f.abs(y - zombie.y());
+            if(Collide.collide(dis_x, dis_y, radius + zombie.radius())) {
+                return zombie_array[i];
+            }
+            let i = i + 1;
+        }
+        return null;
+    }
+    function Wall collide_with_wall(int x, int y, int radius, Array wall_array, int wall_num) {
+         var int i;
+         var int dis_x, dis_y;
+         var Wall wall;
+         let i = 0;
+         while(i < wall_num) {
+             while((i < wall_num) & (wall_array[i] = null)) {
+                let i = i + 1;
+             } 
+             if(i = wall_num) {return null;}
+             let wall = wall_array[i];
+             let dis_x = Math_f.abs(x - wall.x());
+             let dis_y = Math_f.abs(y - wall.y());
+             if(Collide.collide(dis_x, 0, radius + (wall.length() / 2)) 
+                     & Collide.collide(0, dis_y, radius + (wall.width() / 2))) {
+                 return wall_array[i];
+             }
+             let i = i + 1;
+         }
+         return null;
+    }
+    function bool check_in_board(int next_x, int next_y) {
+        if(((next_x < 10) | (next_x > 450)) | ((next_y < 10) | (next_y > 200))) {
+            return false;
+        }
+        return true;
+    }
+   
+}

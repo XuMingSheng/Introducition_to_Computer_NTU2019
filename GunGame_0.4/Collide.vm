@@ -1,0 +1,244 @@
+function Collide.collide 0
+push argument 0
+push argument 2
+lt
+push argument 1
+push argument 2
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Collide.collide_with_player 2
+push argument 0
+push argument 3
+call Player.x 1
+sub
+call Math_f.abs 1
+pop local 0
+push argument 1
+push argument 3
+call Player.y 1
+sub
+call Math_f.abs 1
+pop local 1
+push local 0
+push local 1
+push argument 2
+push argument 3
+call Player.radius 1
+add
+call Collide.collide 3
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 3
+return
+label IF_FALSE0
+push constant 0
+return
+function Collide.collide_with_zombie 4
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 4
+lt
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 0
+push argument 4
+lt
+push local 0
+push argument 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+and
+not
+if-goto WHILE_END1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push argument 4
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push argument 3
+add
+pop pointer 1
+push that 0
+pop local 3
+push argument 0
+push local 3
+call Zombie.x 1
+sub
+call Math_f.abs 1
+pop local 1
+push argument 1
+push local 3
+call Zombie.y 1
+sub
+call Math_f.abs 1
+pop local 2
+push local 1
+push local 2
+push argument 2
+push local 3
+call Zombie.radius 1
+add
+call Collide.collide 3
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push argument 3
+add
+pop pointer 1
+push that 0
+return
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Collide.collide_with_wall 4
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 4
+lt
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 0
+push argument 4
+lt
+push local 0
+push argument 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+and
+not
+if-goto WHILE_END1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push argument 4
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push argument 3
+add
+pop pointer 1
+push that 0
+pop local 3
+push argument 0
+push local 3
+call Wall.x 1
+sub
+call Math_f.abs 1
+pop local 1
+push argument 1
+push local 3
+call Wall.y 1
+sub
+call Math_f.abs 1
+pop local 2
+push local 1
+push constant 0
+push argument 2
+push local 3
+call Wall.length 1
+push constant 2
+call Math.divide 2
+add
+call Collide.collide 3
+push constant 0
+push local 2
+push argument 2
+push local 3
+call Wall.width 1
+push constant 2
+call Math.divide 2
+add
+call Collide.collide 3
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push argument 3
+add
+pop pointer 1
+push that 0
+return
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Collide.check_in_board 0
+push argument 0
+push constant 10
+lt
+push argument 0
+push constant 450
+gt
+or
+push argument 1
+push constant 10
+lt
+push argument 1
+push constant 200
+gt
+or
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push constant 0
+not
+return

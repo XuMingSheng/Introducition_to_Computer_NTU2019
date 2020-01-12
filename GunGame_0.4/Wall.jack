@@ -1,0 +1,99 @@
+
+class Wall {
+    field Vector position;
+    field int length, width;
+    field int life;
+    
+    constructor Wall new(int a, int b, int l, int w) {
+        let position = Vector.new(a, b);
+        let length = l; let width = w;
+        let life = (length * width); 
+        return this;
+    }
+    method void free() {
+        do Memory.deAlloc(this); return;
+    }
+
+    method int x() {return position.x();}
+    method int y() {return position.y();}
+    method int length() {return length;}
+    method int width() {return width;}
+    method int life() {return life;}
+
+    method void appear(bool t) {
+        var int a, b;
+        var int left_x, left_y, right_x, right_y;
+        let a = position.x(); let b = position.y();
+        let left_x = a - (length / 2); let left_y =  b - (width / 2);
+        let right_x = a + (length / 2); let right_y =  b + (width / 2);
+        do draw_bricks(t);
+        //do Screen.drawRectangle(left_x, left_y, right_x, right_y);
+
+        if(t = false) {return;}
+        do Screen.setColor(false);
+        let left_x = (left_x + ((life/width)/2));
+        let left_y = (left_y + ((life/length)/2));
+        let right_x = (right_x - ((life/width)/2));
+        let right_y = (right_y - ((life/length)/2));
+        let left_x = (left_x + 5);
+        let left_y = (left_y + 5);
+        let right_x = (right_x - 5);
+        let right_y = (right_y - 5);
+        if((left_x > right_x) | (left_y > right_y)) {return;}
+        do Screen.drawRectangle(left_x, left_y, right_x, right_y);
+        return;
+    }
+    method void add_life(int a) {
+        let life = life + a;
+        return;
+    }
+    method Vector vector_to_this(int x, int y, int radius) {
+        var int x_dis, y_dis;
+        let x_dis = position.x() - x;
+        let y_dis = position.y() - y;
+        if((x_dis < 0) & (Math_f.abs(y_dis) < ((length / 2) + radius))) {return Vector.new(-1, 0);} 
+        if((x_dis > 0) & (Math_f.abs(y_dis) < ((length / 2) + radius))) {return Vector.new(1, 0);}
+        if((y_dis < 0) & (Math_f.abs(x_dis) < ((width / 2) + radius))) {return Vector.new(0, -1);}
+        if((y_dis > 0) & (Math_f.abs(x_dis) < ((width / 2) + radius))) {return Vector.new(0, 1);}
+        return Vector.new(0, 0);
+   }
+    method void draw_bricks(bool t) {
+        var int i, j, k;
+        var boot odd, odd_even;
+        do Screen.setColor(false);
+        do Screen.drawRectangle(position.x() - (length / 2), position.y() - (width / 2), 
+                position.x() + (length / 2), position.y() + (width / 2));
+        let i = position.y() - (width / 2);
+        let j = 0;
+        let odd = true;
+        //let odd_even = true;
+        while(i < (position.y() + (width / 2))) {
+            if(odd) {
+                do Screen.setColor(false);
+                do Screen.drawLine(position.x() - (length / 2), i, position.x() + (length / 2), i);
+                let odd = false;
+                //if(odd_even) {let odd_even = false;}
+                //else {let odd_even = true;}
+            }
+            else {
+                let k = position.x() - (length / 2);
+                while(k < ((position.x() + (length / 2)) + 1)) {
+                    if(j > 5) {
+                         do Screen.setColor(false);
+                         let j = 0; 
+                    }
+                    else {
+                        do Screen.setColor(t);
+                    }
+                    do Screen.drawPixel(k, i);
+                    let j = j + 1;
+                    let k = k + 1;
+                }
+                let odd = true;
+            }
+            let j = j + 1;
+            let i  = i + 1;
+        }
+        return;
+    }
+}

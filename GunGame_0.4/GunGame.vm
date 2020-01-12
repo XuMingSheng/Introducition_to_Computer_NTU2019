@@ -1,0 +1,3398 @@
+function GunGame.player 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function GunGame.zombie_array 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function GunGame.wall_array 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function GunGame.bullet_array 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function GunGame.game_time 0
+push argument 0
+pop pointer 0
+push this 7
+return
+function GunGame.ladder 0
+push argument 0
+pop pointer 0
+push this 8
+return
+function GunGame.location_num 0
+push argument 0
+pop pointer 0
+push this 9
+return
+function GunGame.generate_gap 0
+push argument 0
+pop pointer 0
+push this 10
+return
+function GunGame.location_array 0
+push argument 0
+pop pointer 0
+push this 12
+return
+function GunGame.new_level1 2
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 225
+push constant 100
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 1
+call Player.appear 2
+pop temp 0
+push constant 75
+push constant 100
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 1
+push constant 4
+call GunGame.init_all_array 4
+pop temp 0
+push constant 50
+pop this 10
+push constant 1
+pop this 11
+push constant 150
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+push constant 0
+push this 2
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+push constant 1
+push this 2
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+push constant 2
+push this 2
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+push constant 3
+push this 2
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level2 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 225
+push constant 175
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 1
+call Player.appear 2
+pop temp 0
+push constant 225
+push constant 50
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 2
+push constant 15
+call GunGame.init_all_array 4
+pop temp 0
+push constant 50
+pop this 10
+push constant 2
+pop this 11
+push constant 100
+push constant 75
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 350
+push constant 75
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 4
+push constant 9
+push constant 125
+push constant 125
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level3 4
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 25
+push constant 175
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 400
+push constant 50
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 3
+push constant 15
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 1
+pop this 11
+push constant 50
+push constant 50
+call Vector.new 2
+pop local 2
+push constant 0
+push this 12
+add
+push local 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 225
+push constant 100
+call Vector.new 2
+pop local 2
+push constant 1
+push this 12
+add
+push local 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 400
+push constant 175
+call Vector.new 2
+pop local 2
+push constant 2
+push this 12
+add
+push local 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 3
+label WHILE_EXP0
+push local 3
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 3
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 2
+push pointer 0
+push local 2
+call Vector.x 1
+push local 2
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 4
+push constant 3
+push constant 50
+push constant 75
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 7
+push constant 3
+push constant 175
+push constant 75
+push constant 1
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 10
+push constant 3
+push constant 350
+push constant 125
+push constant 1
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 11
+push constant 2
+push constant 25
+push constant 150
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 13
+push constant 1
+push constant 50
+push constant 175
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level4 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 25
+push constant 100
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 400
+push constant 100
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 4
+push constant 25
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 2
+pop this 11
+push constant 100
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 200
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 150
+push constant 150
+call Vector.new 2
+pop local 1
+push constant 2
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 250
+push constant 150
+call Vector.new 2
+pop local 1
+push constant 3
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 4
+push constant 8
+push constant 75
+push constant 18
+push constant 1
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 13
+push constant 8
+push constant 300
+push constant 18
+push constant 1
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 22
+push constant 1
+push constant 225
+push constant 100
+push constant 1
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level5 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 225
+push constant 25
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 225
+push constant 160
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 5
+push constant 25
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 3
+pop this 11
+push constant 225
+push constant 65
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 200
+push constant 90
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 250
+push constant 90
+call Vector.new 2
+pop local 1
+push constant 2
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 212
+push constant 110
+call Vector.new 2
+pop local 1
+push constant 3
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 238
+push constant 110
+call Vector.new 2
+pop local 1
+push constant 4
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 4
+push constant 1
+push constant 100
+push constant 60
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 5
+push constant 1
+push constant 100
+push constant 110
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 6
+push constant 1
+push constant 100
+push constant 160
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 7
+push constant 1
+push constant 350
+push constant 60
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 8
+push constant 1
+push constant 350
+push constant 110
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 9
+push constant 1
+push constant 350
+push constant 160
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level6 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 25
+push constant 25
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 400
+push constant 160
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 6
+push constant 25
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 2
+pop this 11
+push constant 385
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 415
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 400
+push constant 60
+call Vector.new 2
+pop local 1
+push constant 2
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 50
+push constant 140
+call Vector.new 2
+pop local 1
+push constant 3
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 35
+push constant 150
+call Vector.new 2
+pop local 1
+push constant 4
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 65
+push constant 150
+call Vector.new 2
+pop local 1
+push constant 5
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 4
+push constant 3
+push constant 225
+push constant 50
+push constant 2
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 7
+push constant 3
+push constant 275
+push constant 100
+push constant 2
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 10
+push constant 1
+push constant 250
+push constant 75
+push constant 3
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 11
+push constant 1
+push constant 200
+push constant 125
+push constant 3
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level7 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 310
+push constant 160
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 175
+push constant 160
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 7
+push constant 25
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 2
+pop this 11
+push constant 240
+push constant 160
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 240
+push constant 140
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 240
+push constant 120
+call Vector.new 2
+pop local 1
+push constant 2
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 240
+push constant 100
+call Vector.new 2
+pop local 1
+push constant 3
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 425
+push constant 90
+call Vector.new 2
+pop local 1
+push constant 4
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 120
+call Vector.new 2
+pop local 1
+push constant 5
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 25
+push constant 25
+call Vector.new 2
+pop local 1
+push constant 6
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 4
+push constant 5
+push constant 280
+push constant 75
+push constant 1
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.new_level8 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 120
+push constant 80
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 400
+push constant 160
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 8
+push constant 25
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 2
+pop this 11
+push constant 360
+push constant 120
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 300
+push constant 185
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 185
+call Vector.new 2
+pop local 1
+push constant 2
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 25
+push constant 80
+call Vector.new 2
+pop local 1
+push constant 3
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 170
+push constant 120
+call Vector.new 2
+pop local 1
+push constant 4
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 195
+push constant 70
+call Vector.new 2
+pop local 1
+push constant 5
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 220
+push constant 120
+call Vector.new 2
+pop local 1
+push constant 6
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 245
+push constant 70
+call Vector.new 2
+pop local 1
+push constant 7
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 5
+push constant 1
+push constant 300
+push constant 155
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 6
+push constant 1
+push constant 120
+push constant 155
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 7
+push constant 1
+push constant 55
+push constant 80
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 8
+push constant 1
+push constant 225
+push constant 55
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 9
+push constant 2
+push constant 400
+push constant 70
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
+function GunGame.free 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function GunGame.init_all_array 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 6
+push this 6
+call Array.new 1
+pop this 3
+push pointer 0
+push this 6
+push this 3
+call GunGame.init_array 3
+pop temp 0
+push argument 2
+pop this 4
+push this 4
+call Array.new 1
+pop this 1
+push pointer 0
+push this 4
+push this 1
+call GunGame.init_array 3
+pop temp 0
+push argument 3
+pop this 5
+push this 5
+call Array.new 1
+pop this 2
+push pointer 0
+push this 5
+push this 2
+call GunGame.init_array 3
+pop temp 0
+push argument 2
+pop this 9
+push this 9
+call Array.new 1
+pop this 12
+push pointer 0
+push this 9
+push this 12
+call GunGame.init_array 3
+pop temp 0
+push constant 0
+return
+function GunGame.init_array 1
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+push argument 2
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.run 6
+push argument 0
+pop pointer 0
+call Canvas.draw_game_border 0
+pop temp 0
+push constant 20
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push constant 10
+call String.new 1
+push constant 89
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 76
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 102
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 21
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push constant 16
+call String.new 1
+push constant 82
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 102
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 121
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 84
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 109
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 20
+push constant 25
+call Output.moveCursor 2
+pop temp 0
+push constant 12
+call String.new 1
+push constant 75
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 109
+call String.appendChar 2
+push constant 98
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 21
+push constant 25
+call Output.moveCursor 2
+pop temp 0
+push constant 8
+call String.new 1
+push constant 67
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+push this 7
+push constant 25
+call Math_f.mod 2
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 0
+not
+call Canvas.draw_ladder 3
+pop temp 0
+push constant 300
+push constant 50
+push constant 0
+not
+call Canvas.draw_blood_type1 3
+pop temp 0
+push constant 123
+push constant 134
+push constant 0
+not
+call Canvas.draw_blood_type1 3
+pop temp 0
+push constant 12
+push constant 35
+push constant 0
+not
+call Canvas.draw_blood_type1 3
+pop temp 0
+push constant 242
+push constant 97
+push constant 0
+not
+call Canvas.draw_blood_type1 3
+pop temp 0
+push constant 98
+push constant 78
+push constant 0
+not
+call Canvas.draw_blood_type2 3
+pop temp 0
+push constant 186
+push constant 6
+push constant 0
+not
+call Canvas.draw_blood_type2 3
+pop temp 0
+push constant 65
+push constant 179
+push constant 0
+not
+call Canvas.draw_blood_type2 3
+pop temp 0
+push constant 402
+push constant 23
+push constant 0
+not
+call Canvas.draw_blood_type2 3
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+label IF_FALSE0
+push this 0
+call Player.x 1
+push this 8
+call Vector.x 1
+sub
+call Math_f.abs 1
+push constant 5
+lt
+push this 0
+call Player.y 1
+push this 8
+call Vector.y 1
+sub
+call Math_f.abs 1
+push constant 5
+lt
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+return
+label IF_FALSE1
+push this 7
+push constant 1
+add
+pop this 7
+push constant 21
+push constant 33
+call Output.moveCursor 2
+pop temp 0
+push this 7
+call Output.printInt 1
+pop temp 0
+push this 7
+push this 10
+call Math_f.mod 2
+push constant 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 7
+push this 10
+call Math.divide 2
+push this 9
+call Math_f.mod 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 5
+push pointer 0
+push local 5
+call Vector.x 1
+push local 5
+call Vector.y 1
+push this 11
+call GunGame.zombie_generator 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+label IF_FALSE2
+label WHILE_EXP1
+push this 7
+push constant 10000
+eq
+not
+if-goto WHILE_END1
+push this 7
+push constant 10000
+sub
+pop this 7
+goto WHILE_EXP1
+label WHILE_END1
+push pointer 0
+call GunGame.player_move 1
+pop temp 0
+push constant 20
+push constant 10
+call Output.moveCursor 2
+pop temp 0
+push this 0
+call Player.life 1
+call Output.printInt 1
+pop temp 0
+push constant 20
+push constant 37
+call Output.moveCursor 2
+pop temp 0
+push this 0
+call Player.score 1
+call Output.printInt 1
+pop temp 0
+push this 0
+call Player.life 1
+push constant 1
+lt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 0
+return
+label IF_FALSE3
+push pointer 0
+call GunGame.player_shoot 1
+pop temp 0
+push constant 21
+push constant 16
+call Output.moveCursor 2
+pop temp 0
+push this 0
+call Player.refractory 1
+call Output.printInt 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP2
+push local 1
+push this 6
+lt
+not
+if-goto WHILE_END2
+label WHILE_EXP3
+push local 1
+push this 6
+lt
+push local 1
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+and
+not
+if-goto WHILE_END3
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP3
+label WHILE_END3
+push local 1
+push this 6
+lt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 1
+push this 3
+add
+pop pointer 1
+push that 0
+pop local 2
+push pointer 0
+push local 2
+call GunGame.bullet_move 2
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push local 2
+push constant 0
+call Bullet.appear 2
+pop temp 0
+push local 2
+call Bullet.free 1
+pop temp 0
+push local 1
+push this 3
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE5
+label IF_FALSE4
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP2
+label WHILE_END2
+push constant 0
+pop local 1
+label WHILE_EXP4
+push local 1
+push this 4
+lt
+not
+if-goto WHILE_END4
+label WHILE_EXP5
+push local 1
+push this 4
+lt
+push local 1
+push this 1
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+and
+not
+if-goto WHILE_END5
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP5
+label WHILE_END5
+push local 1
+push this 4
+lt
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push pointer 0
+push local 1
+push this 1
+add
+pop pointer 1
+push that 0
+call GunGame.zombie_move 2
+pop temp 0
+label IF_FALSE6
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP4
+label WHILE_END4
+push constant 10
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push this 0
+return
+function GunGame.generate_zombie 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 4
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 1
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+push argument 2
+call Zombie.new 2
+pop local 1
+push local 0
+push this 1
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 4
+pop local 0
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.zombie_generator 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 3
+lt
+not
+if-goto WHILE_END0
+push argument 1
+push local 0
+add
+pop local 1
+push argument 2
+push local 0
+add
+pop local 2
+label WHILE_EXP1
+push local 1
+push constant 450
+gt
+not
+if-goto WHILE_END1
+push local 1
+push constant 450
+sub
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+label WHILE_EXP2
+push local 2
+push constant 200
+gt
+not
+if-goto WHILE_END2
+push local 2
+push constant 200
+sub
+pop local 2
+goto WHILE_EXP2
+label WHILE_END2
+push pointer 0
+push local 1
+push local 2
+call GunGame.generate_zombie 3
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.wall_generator 2
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push local 1
+push argument 2
+lt
+not
+if-goto WHILE_END0
+push argument 5
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 3
+push local 1
+push constant 25
+call Math.multiply 2
+add
+push argument 4
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+label IF_FALSE0
+push argument 5
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 3
+push argument 4
+push local 1
+push constant 25
+call Math.multiply 2
+add
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+label IF_FALSE1
+push argument 5
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 3
+push local 1
+push constant 25
+call Math.multiply 2
+sub
+push argument 4
+push local 1
+push constant 25
+call Math.multiply 2
+add
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+label IF_FALSE2
+push argument 5
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 3
+push local 1
+push constant 25
+call Math.multiply 2
+add
+push argument 4
+push local 1
+push constant 25
+call Math.multiply 2
+add
+push constant 25
+push constant 25
+call Wall.new 4
+pop local 0
+label IF_FALSE3
+push local 1
+push argument 1
+add
+push this 2
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.update_wall 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 5
+lt
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 0
+push this 5
+lt
+push local 0
+push this 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+and
+not
+if-goto WHILE_END1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push this 5
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push this 2
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+push constant 0
+not
+call Wall.appear 2
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.update_location 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 0
+not
+call Canvas.draw_crack 3
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.player_move 9
+push argument 0
+pop pointer 0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 1
+push constant 0
+pop local 2
+label IF_FALSE0
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop local 1
+push constant 0
+pop local 2
+label IF_FALSE1
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+pop local 1
+push constant 1
+neg
+pop local 2
+label IF_FALSE2
+push local 0
+push constant 133
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+pop local 1
+push constant 1
+pop local 2
+label IF_FALSE3
+push constant 0
+pop local 4
+push constant 0
+not
+pop local 5
+push this 0
+push this 1
+push this 4
+call Player.collide_with_zombie 3
+pop local 6
+push this 0
+push this 2
+push this 5
+call Player.collide_with_wall 3
+pop local 7
+push local 6
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 7
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 0
+call Player.x 1
+push local 6
+call Zombie.x 1
+sub
+call Math_f.norm 1
+push local 7
+call Wall.x 1
+push this 0
+call Player.x 1
+sub
+call Math_f.norm 1
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 0
+pop local 5
+label IF_FALSE6
+push this 0
+call Player.y 1
+push local 6
+call Zombie.y 1
+sub
+call Math_f.norm 1
+push local 7
+call Wall.y 1
+push this 0
+call Player.y 1
+sub
+call Math_f.norm 1
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+pop local 5
+label IF_FALSE7
+label IF_FALSE5
+push local 5
+push constant 0
+not
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 0
+push this 0
+call Player.x 1
+push local 6
+call Zombie.x 1
+sub
+call Math_f.norm 1
+push this 0
+call Player.y 1
+push local 6
+call Zombie.y 1
+sub
+call Math_f.norm 1
+call Player.retrieve 3
+pop temp 0
+label IF_FALSE8
+label IF_FALSE4
+push this 0
+call Player.dir_x 1
+push local 1
+eq
+push this 0
+call Player.dir_y 1
+push local 2
+eq
+and
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push constant 0
+pop local 3
+label WHILE_EXP0
+push local 3
+push constant 3
+lt
+not
+if-goto WHILE_END0
+push this 0
+push this 1
+push this 4
+call Player.collide_with_zombie 3
+pop local 6
+push this 0
+push this 2
+push this 5
+call Player.collide_with_wall 3
+pop local 7
+push constant 0
+not
+pop local 5
+push local 6
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push local 7
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push this 0
+call Player.x 1
+push local 6
+call Zombie.x 1
+sub
+call Math_f.norm 1
+push local 7
+call Wall.x 1
+push this 0
+call Player.x 1
+sub
+call Math_f.norm 1
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push constant 0
+pop local 5
+label IF_FALSE12
+push this 0
+call Player.y 1
+push local 6
+call Zombie.y 1
+sub
+call Math_f.norm 1
+push local 7
+call Wall.y 1
+push this 0
+call Player.y 1
+sub
+call Math_f.norm 1
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 0
+pop local 5
+label IF_FALSE13
+label IF_FALSE11
+push local 5
+push constant 0
+not
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push this 0
+push this 0
+call Player.x 1
+push local 6
+call Zombie.x 1
+sub
+call Math_f.norm 1
+push this 0
+call Player.y 1
+push local 6
+call Zombie.y 1
+sub
+call Math_f.norm 1
+call Player.retrieve 3
+pop temp 0
+label IF_FALSE14
+label IF_FALSE10
+push this 0
+push this 2
+push this 5
+call Player.collide_with_wall 3
+pop local 7
+push local 7
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push local 7
+push this 0
+call Player.x 1
+push this 0
+call Player.y 1
+push this 0
+call Player.radius 1
+push constant 1
+sub
+call Wall.vector_to_this 4
+pop local 8
+push this 0
+call Player.dir_x 1
+push local 8
+call Vector.x 1
+eq
+push this 0
+call Player.dir_y 1
+push local 8
+call Vector.y 1
+eq
+and
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push constant 0
+not
+pop local 4
+label IF_FALSE16
+push local 8
+call Vector.free 1
+pop temp 0
+label IF_FALSE15
+push local 4
+push constant 0
+eq
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push this 0
+call Player.move 1
+pop temp 0
+label IF_FALSE17
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP0
+label WHILE_END0
+label IF_FALSE9
+push local 0
+push constant 129
+gt
+push local 0
+push constant 134
+lt
+and
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push this 0
+push local 1
+push local 2
+call Player.turn 3
+pop temp 0
+label IF_FALSE18
+push constant 0
+return
+function GunGame.bullet_move 4
+push argument 0
+pop pointer 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 0
+push constant 50
+lt
+push local 2
+push constant 0
+eq
+and
+not
+if-goto WHILE_END0
+push constant 0
+pop local 2
+push argument 1
+push this 1
+push this 4
+call Bullet.collide_with_zombie 3
+pop local 3
+push local 3
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 3
+call Zombie.life 1
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+push constant 1
+call Player.add_score 2
+pop temp 0
+push local 3
+push constant 0
+call Zombie.appear 2
+pop temp 0
+push local 3
+call Zombie.free 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP1
+push local 3
+push local 1
+push this 1
+add
+pop pointer 1
+push that 0
+eq
+push constant 0
+eq
+not
+if-goto WHILE_END1
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
+push this 1
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+not
+pop local 2
+label IF_FALSE1
+push constant 0
+pop local 1
+label WHILE_EXP2
+push local 1
+push constant 3
+lt
+push local 2
+push constant 0
+eq
+and
+not
+if-goto WHILE_END2
+push local 3
+push argument 1
+call Bullet.dir_x 1
+push argument 1
+call Bullet.dir_y 1
+call Zombie.retrieve 3
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP2
+label WHILE_END2
+push constant 0
+not
+pop local 2
+label IF_FALSE0
+push argument 1
+push this 2
+push this 5
+call Bullet.collide_with_wall 3
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop local 2
+label IF_FALSE2
+push local 2
+push constant 0
+not
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 1
+push constant 0
+call Bullet.appear 2
+pop temp 0
+push argument 1
+call Bullet.free 1
+pop temp 0
+push constant 0
+return
+label IF_FALSE3
+push argument 1
+call Bullet.move 1
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push argument 1
+push constant 0
+call Bullet.appear 2
+pop temp 0
+push argument 1
+call Bullet.free 1
+pop temp 0
+push constant 0
+return
+label IF_FALSE4
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+not
+return
+function GunGame.zombie_move 6
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+push this 7
+push argument 1
+call Zombie.x 1
+push argument 1
+call Zombie.y 1
+add
+sub
+call GunGame.zombie_track 3
+pop temp 0
+push constant 0
+pop local 0
+push constant 0
+pop local 3
+label WHILE_EXP0
+push local 0
+push constant 1
+lt
+not
+if-goto WHILE_END0
+push argument 1
+push this 0
+call Zombie.collide_with_player 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 3
+label IF_FALSE0
+push argument 1
+push this 1
+push this 4
+call Zombie.collide_with_zombie 3
+pop local 1
+push local 1
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+pop local 4
+push argument 1
+push this 2
+push this 5
+call Zombie.collide_with_wall 3
+pop local 2
+push local 2
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 1
+call Zombie.x 1
+push local 1
+call Zombie.x 1
+sub
+call Math_f.norm 1
+push local 2
+call Wall.x 1
+push argument 1
+call Zombie.x 1
+sub
+call Math_f.norm 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+pop local 4
+label IF_FALSE3
+push argument 1
+call Zombie.y 1
+push local 1
+call Zombie.y 1
+sub
+call Math_f.norm 1
+push local 2
+call Wall.y 1
+push argument 1
+call Zombie.y 1
+sub
+call Math_f.norm 1
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 0
+pop local 4
+label IF_FALSE4
+label IF_FALSE2
+push local 4
+push constant 0
+not
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push argument 1
+push argument 1
+call Zombie.x 1
+push local 1
+call Zombie.x 1
+sub
+call Math_f.norm 1
+push argument 1
+call Zombie.y 1
+push local 1
+call Zombie.y 1
+sub
+call Math_f.norm 1
+call Zombie.retrieve 3
+pop temp 0
+label IF_FALSE5
+label IF_FALSE1
+push argument 1
+push this 2
+push this 5
+call Zombie.collide_with_wall 3
+pop local 2
+push local 2
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push local 2
+push argument 1
+call Zombie.x 1
+push argument 1
+call Zombie.y 1
+push argument 1
+call Zombie.radius 1
+push constant 2
+sub
+call Wall.vector_to_this 4
+pop local 5
+push argument 1
+call Zombie.dir_x 1
+push local 5
+call Vector.x 1
+eq
+push argument 1
+call Zombie.dir_y 1
+push local 5
+call Vector.y 1
+eq
+and
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+not
+pop local 3
+label IF_FALSE7
+push local 5
+call Vector.free 1
+pop temp 0
+label IF_FALSE6
+push local 3
+push constant 0
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push argument 1
+call Zombie.move 1
+pop temp 0
+label IF_FALSE8
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function GunGame.zombie_track 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+call Zombie.x 1
+push this 0
+call Player.x 1
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+push constant 1
+neg
+push constant 0
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE1
+push argument 1
+call Zombie.x 1
+push this 0
+call Player.x 1
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 1
+push constant 1
+push constant 0
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE2
+push argument 1
+call Zombie.y 1
+push this 0
+call Player.y 1
+gt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 1
+push constant 0
+push constant 1
+neg
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE3
+push argument 1
+call Zombie.y 1
+push this 0
+call Player.y 1
+lt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push argument 1
+push constant 0
+push constant 1
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE4
+goto IF_END0
+label IF_FALSE0
+push argument 1
+call Zombie.y 1
+push this 0
+call Player.y 1
+gt
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push argument 1
+push constant 0
+push constant 1
+neg
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE5
+push argument 1
+call Zombie.y 1
+push this 0
+call Player.y 1
+lt
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push argument 1
+push constant 0
+push constant 1
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE6
+push argument 1
+call Zombie.x 1
+push this 0
+call Player.x 1
+gt
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push argument 1
+push constant 1
+neg
+push constant 0
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE7
+push argument 1
+call Zombie.x 1
+push this 0
+call Player.x 1
+lt
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push argument 1
+push constant 1
+push constant 0
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE8
+label IF_END0
+push constant 0
+return
+function GunGame.player_shoot 4
+push argument 0
+pop pointer 0
+push this 0
+push constant 50
+call Player.cooldown 2
+pop temp 0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 32
+eq
+push this 0
+call Player.refractory 1
+push constant 0
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 6
+lt
+push local 2
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+push constant 0
+eq
+and
+not
+if-goto WHILE_END0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push this 0
+call Player.x 1
+push this 0
+call Player.dir_x 1
+push constant 18
+call Math.multiply 2
+add
+push this 0
+call Player.y 1
+push this 0
+call Player.dir_y 1
+push constant 18
+call Math.multiply 2
+add
+push this 0
+call Player.dir_x 1
+push this 0
+call Player.dir_y 1
+call Bullet.new 4
+pop local 1
+push local 2
+push this 3
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 0
+push constant 500
+call Player.set_refractory 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function GunGame.zombie_random_turn 0
+push argument 0
+pop pointer 0
+push argument 1
+call Zombie.x 1
+push this 7
+push constant 10
+call Math.divide 2
+sub
+call Math_f.abs 1
+push constant 10
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+push constant 1
+neg
+push constant 0
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE0
+push argument 1
+call Zombie.x 1
+push this 7
+push constant 20
+call Math.divide 2
+sub
+call Math_f.abs 1
+push constant 5
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+push constant 1
+push constant 0
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE1
+push argument 1
+call Zombie.y 1
+push this 7
+push constant 10
+call Math.divide 2
+sub
+call Math_f.abs 1
+push constant 10
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 1
+push constant 0
+push constant 1
+neg
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE2
+push argument 1
+call Zombie.x 1
+push this 7
+push constant 20
+call Math.divide 2
+sub
+call Math_f.abs 1
+push constant 5
+lt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 1
+push constant 0
+push constant 1
+call Zombie.turn 3
+pop temp 0
+label IF_FALSE3
+push constant 0
+return

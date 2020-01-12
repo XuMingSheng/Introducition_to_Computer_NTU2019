@@ -1,0 +1,17 @@
+
+class Math_f {
+    function int abs(int x) {
+        if(x > 0) {return x;}
+        else {return -x;}
+    }
+    function int norm(int x) {
+        if(x > 0) {return 1;}
+        if(x < 0) {return -1;}
+        return 0;
+    }
+    function int mod(int a, int p) {
+        var int q;
+        let q = a / p;
+        return a - (p * q);
+    }
+}

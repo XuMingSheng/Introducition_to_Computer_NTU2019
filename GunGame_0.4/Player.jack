@@ -1,0 +1,268 @@
+
+class Player {
+    field Vector position;
+    field Vector direction; 
+    field int refractory, radius, life, max_life;
+    field bool left_right_leg;
+    field int score;
+    constructor Player new(int a, int b, int l, int s) {
+        let position = Vector.new(a, b);
+        let direction = Vector.new(0, 1);
+        let radius = 12;
+        let refractory = 0;
+        let life = l;
+        let max_life = 40;
+        let score = s;
+        let left_right_leg = true;
+        //do appear(true);
+        return this;
+    } 
+    method void free() {do Memory.deAlloc(this); return;}
+
+    method int x() {return position.x();}
+    method int y() {return position.y();}
+    method Vector direction() {return direction;}
+    method int dir_x() {return direction.x();}
+    method int dir_y() {return direction.y();}
+    method int refractory() {return refractory;}
+    method int radius() {return radius;}
+    method int life() {return life;}
+    method int score() {return score;}
+    
+    method void appear(bool t) {
+        var int a, b, dir_a, dir_b;
+        let a = position.x(); let b = position.y();
+        let dir_a = direction.x(); let dir_b = direction.y();
+        do Screen.setColor(t);
+        //do Screen.drawRectangle(a - 12, b - 15, (a - 12) + ((24 * life) / max_life), b - 14);
+        if(direction.x() < 0) {
+            do draw_left_lateral_view(t, position.x(), position.y());
+        }
+        if(direction.x() > 0) {
+            do draw_right_lateral_view(t, position.x(), position.y());
+        }
+        if(direction.y() < 0) {
+            do draw_dorsal_view(t, position.x(), position.y());
+        }
+        if(direction.y() > 0) {
+            do draw_ventral_view(t, position.x(), position.y());
+        }
+        do Screen.setColor(false);
+        //do Screen.drawCircle(a, b, 4 - ((life/10)));
+        return;
+    }
+    method void turn(int a, int b) {
+        do appear(false);
+        do Memory.deAlloc(direction);
+        let direction = Vector.new(a, b);
+        do appear(true);
+        return;
+    }
+    method void move() {
+        var int next_x, next_y;
+        if(left_right_leg) {let left_right_leg = false;}
+        else {let left_right_leg = true;}
+        let next_x = position.x() + (direction.x() * radius);
+        let next_y = position.y() + (direction.y() * radius);
+        if(Collide.check_in_board(next_x, next_y) = false) {
+            return;
+        }
+        do appear(false);
+        do position.addVector(direction.x(), direction.y());
+        do appear(true);
+        return;
+    }
+    method Zombie collide_with_zombie(Array zombie_array, int zombie_num) {
+        var Zombie zombie;
+        let zombie = Collide.collide_with_zombie(position.x(), position.y(), radius, zombie_array, zombie_num);
+        if((zombie = null) = false) { 
+            //do retrieve(Math_f.norm(position.x() - zombie.x()), Math_f.norm(position.y() - zombie.y()));
+            //do appear(false);
+           // do add_life(-1);
+            //if((life < 0) | (life = 0)) {return zombie;}
+            //do appear(true);
+            return zombie;
+        }
+        return null;
+    }
+    method Wall collide_with_wall(Array wall_array, int wall_num) {
+        var Wall wall;
+        var int i;
+        let wall = Collide.collide_with_wall(position.x(), position.y(), radius, wall_array, wall_num);
+        if((wall = null) = false) {
+            return wall;
+        }
+        return null;
+    }
+    method void retrieve(int a, int b) {
+        var int next_x, next_y;
+        let next_x = position.x() + (a * radius);
+        let next_y = position.y() + (b * radius);
+        if(Collide.check_in_board(next_x, next_y) = false) {
+            return;
+        }
+        do appear(false);
+        do position.addVector(a, b);
+        do appear(true);
+        return;
+    }
+
+    method void add_life(int a) {
+        let life = life + a; return;
+    }
+
+    method void set_refractory(int a) {
+        let refractory = a; return;
+    }
+    method void cooldown(int a) {
+        if(refractory > 0) {
+            let refractory = refractory - a;
+        }        
+        return;
+    }
+    method void add_score(int a) {
+        let score = score + a; return;
+    }
+    method void draw_hat(bool t, int center_x, int center_y) {
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(7 + center_x, 0 + center_y, 17 + center_x, 0 + center_y);
+        do Screen.drawRectangle(6 + center_x, 1 + center_y, 18 + center_x, 1 + center_y);
+        do Screen.drawRectangle(5 + center_x, 2 + center_y, 19 + center_x, 2 + center_y);
+        do Screen.drawRectangle(3 + center_x, 3 + center_y, 21 + center_x, 3 + center_y);
+        do Screen.drawRectangle(3 + center_x, 4 + center_y, 21 + center_x, 4 + center_y);
+        return;
+    }
+    method void draw_body(bool t, int center_x, int center_y) {
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(9 + center_x, 13 + center_y, 15 + center_x, 20 + center_y);
+        do Screen.drawRectangle(5 + center_x, 5 + center_y, 5 + center_x, 8 + center_y);
+        do Screen.drawRectangle(19 + center_x, 5 + center_y, 19 + center_x, 8 + center_y);
+        do Screen.drawRectangle(6 + center_x, 9 + center_y, 6 + center_x, 10 + center_y);
+        do Screen.drawRectangle(18 + center_x, 9 + center_y, 18 + center_x, 10 + center_y);
+        do Screen.drawRectangle(7 + center_x, 11 + center_y, 7 + center_x, 11 + center_y);
+        do Screen.drawRectangle(17 + center_x, 11 + center_y, 17 + center_x, 11 + center_y);
+        do Screen.drawRectangle(8 + center_x, 12 + center_y, 9 + center_x, 12 + center_y);
+        do Screen.drawRectangle(15 + center_x, 12 + center_y, 16 + center_x, 12 + center_y);
+        do Screen.drawRectangle(10 + center_x, 13 + center_y, 14 + center_x, 13 + center_y);
+        return;
+    }
+    method void draw_legs(bool t, int center_x, int center_y) {
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(10 + center_x, 21 + center_y, 11 + center_x, 24 + center_y);
+        do Screen.drawRectangle(13 + center_x, 21 + center_y, 14 + center_x, 24 + center_y);
+        do Screen.setColor(false);
+        if(left_right_leg) {do Screen.drawRectangle(10 + center_x, 24 + center_y, 11 + center_x, 24 + center_y);}
+        else {do Screen.drawRectangle(13 + center_x, 24 + center_y, 14 + center_x, 24 + center_y);}
+        return;
+    }
+    method void draw_ventral_view(bool t, int center_x, int center_y) {
+        do draw_hat(t, center_x, center_y); do draw_body(t, center_x, center_y);
+        do draw_legs(t, center_x, center_y);
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(6 + center_x, 5 + center_y, 7 + center_x, 5 + center_y);
+        do Screen.drawRectangle(17 + center_x, 5 + center_y, 18 + center_x, 5 + center_y);
+        do Screen.drawRectangle(6 + center_x, 6 + center_y, 6 + center_x, 6 + center_y);
+        do Screen.drawRectangle(18 + center_x, 6 + center_y, 18 + center_x, 6 + center_y);
+        do Screen.drawRectangle(8 + center_x, 6 + center_y, 9 + center_x, 6 + center_y);
+        do Screen.drawRectangle(15 + center_x, 6 + center_y, 16 + center_x, 6 + center_y);
+        do Screen.drawRectangle(7 + center_x, 7 + center_y, 7 + center_x, 7 + center_y);
+        do Screen.drawRectangle(17 + center_x, 17 + center_y, 17 + center_x, 17 + center_y);
+        do Screen.drawRectangle(9 + center_x, 7 + center_y, 10 + center_x, 9 + center_y);
+        do Screen.drawRectangle(14 + center_x, 7 + center_y, 15 + center_x, 9 + center_y);
+        do Screen.drawRectangle(16 + center_x, 13 + center_y, 18 + center_x, 18 + center_y);
+        do Screen.drawRectangle(6 + center_x, 13 + center_y, 8 + center_x, 15 + center_y);
+        do Screen.drawRectangle(7 + center_x, 16 + center_y, 7 + center_x, 17 + center_y);
+        do Screen.drawRectangle(4 + center_x, 14 + center_y, 6 + center_x, 19 + center_y);
+        do Screen.drawRectangle(5 + center_x, 20 + center_y, 5 + center_x, 20 + center_y);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(12 + center_x, 14 + center_y, 12 + center_x, 16 + center_y);
+        do Screen.drawRectangle(16 + center_x, 15 + center_y, 16 + center_x, 16 + center_y);
+        do Screen.drawRectangle(5 + center_x, 15 + center_y, 5 + center_x, 18 + center_y);
+        return;
+    }
+    method void draw_left_lateral_view(int t, int center_x, int center_y) {
+        do draw_hat(t, center_x, center_y); do draw_body(t, center_x, center_y);
+        do draw_legs(t, center_x, center_y);
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(14 + center_x, 5 + center_y, 19 + center_x, 6 + center_y); //hair
+        do Screen.drawRectangle(16 + center_x, 7 + center_y, 19 + center_x, 7 + center_y); //hair
+        do Screen.drawRectangle(17 + center_x, 8 + center_y, 19 + center_x, 8 + center_y); //hair
+        do Screen.drawRectangle(10 + center_x, 6 + center_y, 11 + center_x, 6 + center_y); //eyebrow
+        do Screen.drawRectangle(12 + center_x, 7 + center_y, 12 + center_x, 7 + center_y); //eyebrow
+        do Screen.drawRectangle(9 + center_x, 7 + center_y, 10 + center_x, 9 + center_y); //eye
+        do Screen.drawRectangle(15 + center_x, 14 + center_y, 17 + center_x, 18 + center_y); //left_arm
+        do Screen.drawRectangle(3 + center_x, 13 + center_y, 7 + center_x, 15 + center_y); //right_arm
+        do Screen.drawRectangle(8 + center_x, 16 + center_y, 8 + center_x, 16 + center_y); //right_arm
+        do Screen.drawRectangle(4 + center_x, 16 + center_y, 5 + center_x, 16 + center_y); //rihgt_arm
+        do Screen.drawRectangle(1 + center_x, 12 + center_y, 5 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(0 + center_x, 13 + center_y, 0 + center_x, 13 + center_y); //right_arm
+        do Screen.drawRectangle(4 + center_x, 11 + center_y, 4 + center_x, 11 + center_y); //right_arm
+        do Screen.setColor(false);
+        do Screen.drawRectangle(15 + center_x, 14 + center_y, 15 + center_x, 15 + center_y); //left_arm
+        do Screen.drawLine(16 + center_x, 16 + center_y, 15 + center_x, 17 + center_y); //left_arm
+        do Screen.drawRectangle(10 + center_x, 14 + center_y, 10 + center_x, 16 + center_y); //ventral_body
+        do Screen.drawRectangle(8 + center_x, 14 + center_y, 8 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(5 + center_x, 14 + center_y, 5 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(2 + center_x, 13 + center_y, 4 + center_x, 13 + center_y); //right_arm
+
+        return;
+    } 
+    method void draw_right_lateral_view(int t, int center_x, int center_y) {
+        do draw_hat(t, center_x, center_y); do draw_body(t, center_x, center_y);
+        do draw_legs(t, center_x, center_y);
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(5 + center_x, 5 + center_y, 10 + center_x, 6 + center_y); //hair
+        do Screen.drawRectangle(5 + center_x, 7 + center_y, 9 + center_x, 7 + center_y); //hair
+        do Screen.drawRectangle(5 + center_x, 8 + center_y, 7 + center_x, 8 + center_y); //hair
+        do Screen.drawRectangle(13 + center_x, 6 + center_y, 14 + center_x, 6 + center_y); //eyebrow
+        do Screen.drawRectangle(12 + center_x, 7 + center_y, 12 + center_x, 7 + center_y); //eyebrow
+        do Screen.drawRectangle(14 + center_x, 7 + center_y, 15 + center_x, 9 + center_y); //eye
+        do Screen.drawRectangle(7 + center_x, 14 + center_y, 9 + center_x, 18 + center_y); //left_arm
+        do Screen.drawRectangle(16 + center_x, 13 + center_y, 21 + center_x, 15 + center_y); //right_arm
+        do Screen.drawRectangle(19 + center_x, 16 + center_y, 20 + center_x, 16 + center_y); //right_arm
+        do Screen.drawRectangle(19 + center_x, 12 + center_y, 23 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(24 + center_x, 13 + center_y, 24 + center_x, 13 + center_y); //right_arm
+        do Screen.drawRectangle(20 + center_x, 11 + center_y, 20 + center_x, 11 + center_y); //right_arm
+        do Screen.setColor(false);
+        do Screen.drawLine(8 + center_x, 16 + center_y, 9 + center_x, 17 + center_y); //left_arm
+        do Screen.drawLine(15 + center_x, 13 + center_y, 14 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(19 + center_x, 14 + center_y, 19 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(20 + center_x, 13 + center_y, 22 + center_x, 13 + center_y); //right_arm*/
+
+        return;
+    } 
+    method void draw_dorsal_view(bool t, int center_x, int center_y) {
+        do draw_hat(t, center_x, center_y); do draw_body(t, center_x, center_y);
+        do draw_legs(t, center_x, center_y);
+        let center_x = center_x - 12;
+        let center_y = center_y - 12;
+        do Screen.setColor(t);
+        do Screen.drawRectangle(5 + center_x, 5 + center_y, 18 + center_x, 8 + center_y); //head
+        do Screen.drawRectangle(6 + center_x, 9 + center_y, 17 + center_x, 10 + center_y); //head
+        do Screen.drawRectangle(6 + center_x, 13 + center_y, 8 + center_x, 18 + center_y); //left_arm
+        do Screen.drawRectangle(16 + center_x, 13 + center_y, 17 + center_x, 17 + center_y); //right_arm
+        do Screen.drawRectangle(6 + center_x, 9 + center_y, 17 + center_x, 10 + center_y); //right_arm
+        do Screen.drawRectangle(18 + center_x, 10 + center_y, 20 + center_x, 16 + center_y); //right_arm
+        do Screen.drawRectangle(19 + center_x, 17 + center_y, 19 + center_x, 17 + center_y); //right_arm
+        do Screen.setColor(false);
+        do Screen.drawRectangle(8 + center_x, 15 + center_y, 8 + center_x, 16 + center_y); //left_arm
+        //do Screen.drawRectangle(14 + center_x, 15 + center_y, 15 + center_x, 15 + center_y); //right_arm
+        //do Screen.drawRectangle(15 + center_x, 14 + center_y, 16 + center_x, 14 + center_y); //right_arm
+        do Screen.drawRectangle(19 + center_x, 11 + center_y, 19 + center_x, 13 + center_y); //right_arm
+        do Screen.drawRectangle(19 + center_x, 15 + center_y, 19 + center_x, 15 + center_y); //right_arm
+
+        return;
+    }
+}

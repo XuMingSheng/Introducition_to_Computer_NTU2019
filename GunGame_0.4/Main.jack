@@ -1,0 +1,38 @@
+
+class Main {
+    function void main() {
+        var GunGame game;
+        var Player player;
+        var int life, score, level;
+        var int mode;
+        let level = 0;
+        while(true) {
+            let level = level + 1;
+            if(level < 2) {let mode = Canvas.initial_scene();}
+            else {do Canvas.next_level_scene(level);}
+            if((level < 2) & (mode = 1)) {
+                let level = Canvas.select_level_scene();
+                let life = 40;
+                let score = 0;
+            }
+            if(level = 1) {let game = GunGame.new_level1(40, 0);}
+            if(level = 2) {let game = GunGame.new_level2(life, score);}
+            if(level = 3) {let game = GunGame.new_level3(life, score);}
+            if(level = 4) {let game = GunGame.new_level4(life, score);}
+            if(level = 5) {let game = GunGame.new_level5(life, score);}
+            if(level = 6) {let game = GunGame.new_level6(life, score);}
+            if(level = 7) {let game = GunGame.new_level7(life, score);}
+            if(level = 8) {let game = GunGame.new_level8(life, score);}
+            //let game = GunGame.new_level8(40, 0);
+            let player = game.run();
+            let life = player.life();
+            let score = player.score();
+            do game.free();
+            if((life < 0) | (life = 0)) {
+                do Canvas.game_over();
+                let level = 0;
+            }
+        }                
+        return;
+    }
+} 
