@@ -1,0 +1,542 @@
+function Bullet.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push argument 1
+call Vector.new 2
+pop this 0
+push argument 2
+push argument 3
+call Vector.new 2
+pop this 1
+push pointer 0
+push constant 0
+not
+call Bullet.appear 2
+pop temp 0
+push pointer 0
+return
+function Bullet.free 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Bullet.head 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Bullet.x 0
+push argument 0
+pop pointer 0
+push this 0
+call Vector.x 1
+return
+function Bullet.y 0
+push argument 0
+pop pointer 0
+push this 0
+call Vector.y 1
+return
+function Bullet.dir_x 0
+push argument 0
+pop pointer 0
+push this 1
+call Vector.x 1
+return
+function Bullet.dir_y 0
+push argument 0
+pop pointer 0
+push this 1
+call Vector.y 1
+return
+function Bullet.appear 4
+push argument 0
+pop pointer 0
+push this 0
+call Vector.x 1
+pop local 0
+push this 0
+call Vector.y 1
+pop local 1
+push this 1
+call Vector.x 1
+pop local 2
+push this 1
+call Vector.y 1
+pop local 3
+push local 2
+push constant 1
+neg
+eq
+push local 3
+push constant 0
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push argument 1
+push local 0
+push local 1
+call Bullet.draw_left_direction 4
+pop temp 0
+label IF_FALSE0
+push local 2
+push constant 1
+eq
+push local 3
+push constant 0
+eq
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+push argument 1
+push local 0
+push local 1
+call Bullet.draw_right_direction 4
+pop temp 0
+label IF_FALSE1
+push local 2
+push constant 0
+eq
+push local 3
+push constant 1
+neg
+eq
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+push argument 1
+push local 0
+push local 1
+call Bullet.draw_up_direction 4
+pop temp 0
+label IF_FALSE2
+push local 2
+push constant 0
+eq
+push local 3
+push constant 1
+eq
+and
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push argument 1
+push local 0
+push local 1
+call Bullet.draw_down_direction 4
+pop temp 0
+label IF_FALSE3
+push constant 0
+return
+function Bullet.move 2
+push argument 0
+pop pointer 0
+push this 0
+call Vector.x 1
+push this 1
+call Vector.x 1
+push constant 3
+call Math.multiply 2
+add
+pop local 0
+push this 0
+call Vector.y 1
+push this 1
+call Vector.y 1
+push constant 3
+call Math.multiply 2
+add
+pop local 1
+push local 0
+push local 1
+call Collide.check_in_board 2
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push pointer 0
+push constant 0
+call Bullet.appear 2
+pop temp 0
+push this 0
+push this 1
+call Vector.x 1
+push this 1
+call Vector.y 1
+call Vector.addVector 3
+pop temp 0
+push pointer 0
+push constant 0
+not
+call Bullet.appear 2
+pop temp 0
+push constant 0
+not
+return
+function Bullet.collide_with_zombie 2
+push argument 0
+pop pointer 0
+push this 0
+call Vector.x 1
+push this 0
+call Vector.y 1
+push constant 0
+push argument 1
+push argument 2
+call Collide.collide_with_zombie 5
+pop local 0
+push local 0
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push constant 1
+neg
+call Zombie.add_life 2
+pop temp 0
+push constant 0
+pop local 1
+push local 0
+return
+label IF_FALSE0
+push constant 0
+return
+function Bullet.collide_with_wall 2
+push argument 0
+pop pointer 0
+push this 0
+call Vector.x 1
+push this 0
+call Vector.y 1
+push constant 0
+push argument 1
+push argument 2
+call Collide.collide_with_wall 5
+pop local 0
+push local 0
+push constant 0
+eq
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push constant 100
+neg
+call Wall.add_life 2
+pop temp 0
+push local 0
+call Wall.life 1
+push constant 0
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push constant 0
+call Wall.appear 2
+pop temp 0
+push local 0
+call Wall.free 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 0
+push local 1
+push argument 1
+add
+pop pointer 1
+push that 0
+eq
+push constant 0
+eq
+not
+if-goto WHILE_END0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+push argument 1
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE1
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Bullet.draw_left_direction 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 2
+sub
+pop argument 2
+push argument 3
+push constant 2
+sub
+pop argument 3
+push argument 1
+call Screen.setColor 1
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 2
+push argument 3
+add
+push constant 2
+call Screen.drawCircle 3
+pop temp 0
+push constant 3
+push argument 2
+add
+push argument 3
+push constant 7
+push argument 2
+add
+push constant 4
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 2
+push argument 3
+add
+call Screen.drawPixel 2
+pop temp 0
+push constant 3
+push argument 2
+add
+push constant 1
+push argument 3
+add
+push constant 5
+push argument 2
+add
+push constant 1
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Bullet.draw_right_direction 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 5
+sub
+pop argument 2
+push argument 3
+push constant 2
+sub
+pop argument 3
+push argument 1
+call Screen.setColor 1
+pop temp 0
+push constant 5
+push argument 2
+add
+push constant 2
+push argument 3
+add
+push constant 2
+call Screen.drawCircle 3
+pop temp 0
+push argument 2
+push argument 3
+push constant 4
+push argument 2
+add
+push constant 4
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 5
+push argument 2
+add
+push constant 2
+push argument 3
+add
+call Screen.drawPixel 2
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 1
+push argument 3
+add
+push constant 4
+push argument 2
+add
+push constant 1
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Bullet.draw_down_direction 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 2
+sub
+pop argument 2
+push argument 3
+push constant 4
+sub
+pop argument 3
+push argument 1
+call Screen.setColor 1
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 4
+push argument 3
+add
+push constant 2
+call Screen.drawCircle 3
+pop temp 0
+push argument 2
+push argument 3
+push constant 4
+push argument 2
+add
+push constant 3
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 4
+push argument 3
+add
+call Screen.drawPixel 2
+pop temp 0
+push constant 1
+push argument 2
+add
+push constant 1
+push argument 3
+add
+push constant 1
+push argument 2
+add
+push constant 3
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Bullet.draw_up_direction 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 2
+sub
+pop argument 2
+push argument 3
+push constant 2
+sub
+pop argument 3
+push argument 1
+call Screen.setColor 1
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 2
+push argument 3
+add
+push constant 2
+call Screen.drawCircle 3
+pop temp 0
+push argument 2
+push constant 3
+push argument 3
+add
+push constant 4
+push argument 2
+add
+push constant 7
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 2
+push argument 2
+add
+push constant 2
+push argument 3
+add
+call Screen.drawPixel 2
+pop temp 0
+push constant 3
+push argument 2
+add
+push constant 3
+push argument 3
+add
+push constant 3
+push argument 2
+add
+push constant 5
+push argument 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return

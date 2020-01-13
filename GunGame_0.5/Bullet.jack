@@ -1,0 +1,134 @@
+
+class Bullet {
+    field Vector head;
+    field Vector direction;
+    
+    constructor Bullet new(int a, int b, int dir_a, int dir_b) {
+       let head = Vector.new(a, b);
+       let direction = Vector.new(dir_a, dir_b);
+       do appear(true);
+       return this;
+    }
+    method void free() {do Memory.deAlloc(this); return;}
+    
+    method Vector head() {return head;}
+    method int x() {return head.x();}
+    method int y() {return head.y();}
+    method int dir_x() {return direction.x();}
+    method int dir_y() {return direction.y();}
+    
+    method void appear(bool t) {
+       var int a, b, dir_a, dir_b;
+       let a = head.x(); let b = head.y();
+       let dir_a = direction.x(); let dir_b = direction.y();
+       if ((dir_a = -1) & (dir_b = 0)) {
+           do draw_left_direction(t, a, b);
+       }
+       if ((dir_a = 1) & (dir_b = 0)) {
+           do draw_right_direction(t, a, b);
+       }
+       if ((dir_a = 0) & (dir_b = -1)) {
+           do draw_up_direction(t, a, b);
+       }
+       if ((dir_a = 0) & (dir_b = 1)) {
+           do draw_down_direction(t, a, b);
+       } 
+        return;
+    }
+    method bool move() {
+        var int next_x, next_y;
+        let next_x = head.x() + (direction.x() * 3);
+        let next_y = head.y() + (direction.y() * 3);
+        if(Collide.check_in_board(next_x, next_y) = false){
+            return false;
+        }
+        do appear(false);
+        do head.addVector(direction.x(), direction.y());
+        do appear(true);
+        return true;
+    }
+    method Zombie collide_with_zombie(Array zombie_array, int zombie_num) {
+        var Zombie zombie;
+        var int i;
+        let zombie = Collide.collide_with_zombie(head.x(), head.y(), 0, zombie_array, zombie_num);
+        if((zombie = null) = false) {
+            do zombie.add_life(-1);
+            let i = 0;
+            /*while(i < 3) {
+                 do zombie.retrieve(direction.x(), direction.y());
+                 let i = i + 1;
+            }
+            if(zombie.life() = 0) {
+                do zombie.appear(false);
+                do zombie.free();
+                let i = 0;
+                while((zombie = zombie_array[i]) = false) {
+                    let i = i + 1;
+                }            
+                let zombie_array[i] = null;
+                return null;
+            }*/
+            return zombie;
+       }
+       return null;
+    }
+    method bool collide_with_wall(Array wall_array, int wall_num) {
+        var Wall wall;
+        var int i;
+        let wall = Collide.collide_with_wall(head.x(), head.y(), 0, wall_array, wall_num);
+        if((wall = null) = false) {
+            do wall.add_life(-100);
+            if(wall.life() < 0) {
+                 do wall.appear(false);
+                 do wall.free();
+                 let i = 0;
+                 while((wall = wall_array[i]) = false) {
+                     let i = i + 1;
+                 }
+                 let wall_array[i] = null;
+            }
+            return true;
+        }
+        return false;
+    }
+    method void draw_left_direction(bool t, int head_x, int head_y) {
+         let head_x = head_x - 2; let head_y = head_y - 2;
+         do Screen.setColor(t);
+         do Screen.drawCircle(2 + head_x, 2 + head_y, 2);
+         do Screen.drawRectangle(3 + head_x, head_y, 7 + head_x, 4 + head_y);
+         do Screen.setColor(false);
+         do Screen.drawPixel(2 + head_x, 2 + head_y);
+         do Screen.drawRectangle(3 + head_x, 1 + head_y, 5 + head_x, 1 + head_y);
+         return;
+    } 
+    method void draw_right_direction(bool t, int head_x, int head_y) {
+         let head_x = head_x - 5; let head_y = head_y - 2;
+         do Screen.setColor(t);
+         do Screen.drawCircle(5 + head_x, 2 + head_y, 2);
+         do Screen.drawRectangle(head_x, head_y, 4 + head_x, 4 + head_y);
+         do Screen.setColor(false);
+         do Screen.drawPixel(5 + head_x, 2 + head_y);
+         do Screen.drawRectangle(2 + head_x, 1 + head_y, 4 + head_x, 1 + head_y);
+         return;
+    }
+    method void draw_down_direction(bool t, int head_x, int head_y) {
+         let head_x = head_x - 2; let head_y = head_y - 4;
+         do Screen.setColor(t);
+         do Screen.drawCircle(2 + head_x, 4 + head_y, 2);
+         do Screen.drawRectangle(head_x, head_y, 4 + head_x, 3 + head_y);
+         do Screen.setColor(false);
+         do Screen.drawPixel(2 + head_x, 4 + head_y);
+         do Screen.drawRectangle(1 + head_x, 1 + head_y, 1 + head_x, 3 + head_y);
+         return;
+    }
+    method void draw_up_direction(bool t, int head_x, int head_y) {
+         let head_x = head_x - 2; let head_y = head_y - 2;
+         do Screen.setColor(t);
+         do Screen.drawCircle(2 + head_x, 2 + head_y, 2);
+         do Screen.drawRectangle(head_x, 3 + head_y, 4 + head_x, 7 + head_y);
+         do Screen.setColor(false);
+         do Screen.drawPixel(2 + head_x, 2 + head_y);
+         do Screen.drawRectangle(3 + head_x, 3 + head_y, 3 + head_x, 5 + head_y);
+         return;
+    }
+}

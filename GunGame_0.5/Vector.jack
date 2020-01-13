@@ -1,0 +1,29 @@
+
+class Vector {
+    field int x;
+    field int y;
+    constructor Vector new(int a, int b) {
+        let x = a; let y = b;
+        return this;
+    }
+    method void free() {
+        do Memory.deAlloc(this); return;
+    }
+    method int x() {
+        return x;
+    }
+    method int y() {
+        return y;
+    }
+    method void addVector(int a, int b) {
+        let x = x + a; 
+        let y = y + b;
+        return;
+    }
+    method void neg_x() {
+        let x = -x; return;
+    }
+    method void neg_y() {
+        let y = -y; return;
+    }
+}

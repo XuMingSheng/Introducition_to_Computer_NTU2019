@@ -1,0 +1,766 @@
+
+class GunGame {
+    field Player player;
+    field Array zombie_array, wall_array, bullet_array;
+    field int zombie_num, wall_num, bullet_num; 
+    field int game_time;
+    field Vector ladder;
+    field int location_num, generate_gap, generate_cnt;
+    field Array location_array;
+
+    method Player player() {return player;}
+    method Array zombie_array() {return zombie_array;}
+    method Array wall_array() {return wall_array;}
+    method Array bullet_array() {return bullet_array;}
+    method int game_time() {return game_time;}
+    method Vector ladder() {return ladder;}
+    method int location_num() {return location_num;}
+    method int generate_gap() {return generate_gap;}
+    method Array location_array() {return location_array;}
+    
+    constructor GunGame new_level1(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        
+        let game_time = 0;
+        let player = Player.new(225, 100, l, s);
+        do player.appear(1);
+        let ladder = Vector.new(75, 100);
+        
+        do init_all_array(5, 1, 4);
+        let generate_gap = 50;
+        let generate_cnt = 1;
+
+        let location = Vector.new(150, 50);
+        let location_array[0] = location;
+
+        let wall = Wall.new(ladder.x() - 25, ladder.y(), 25, 25);
+        let wall_array[0] = wall;
+        let wall = Wall.new(ladder.x() + 25, ladder.y(), 25, 25);
+        let wall_array[1] = wall;
+        let wall = Wall.new(ladder.x(), ladder.y() - 25, 25, 25);
+        let wall_array[2] = wall;
+        let wall = Wall.new(ladder.x(), ladder.y() + 25, 25, 25);
+        let wall_array[3] = wall;
+        
+        do update_wall();
+           
+        return this;
+    }
+    constructor GunGame new_level2(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(225, 175, l, s);
+        do player.appear(1);
+        let ladder = Vector.new(225, 50);
+        
+        do init_all_array(5, 2, 15);
+        let generate_gap = 50;
+        let generate_cnt = 2;
+
+        let location = Vector.new(100, 75);
+        let location_array[0] = location;
+        let location = Vector.new(350, 75);
+        let location_array[1] = location;
+        
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+
+        do wall_generator(4, 9, 125, 125, 0);
+        do update_wall();
+        do update_location();
+           
+        return this;
+    }
+    constructor GunGame new_level3(int l, int s) {
+        var Zombie zombie;
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(25, 175, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(400, 50);
+        
+        do init_all_array(5, 3, 15);
+        let generate_gap = 100;
+        let generate_cnt = 1;
+
+        let location = Vector.new(50, 50);
+        let location_array[0] = location;
+        let location = Vector.new(225, 100);
+        let location_array[1] = location;
+        let location = Vector.new(400, 175);
+        let location_array[2] = location;
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+
+        do wall_generator(4, 3, 50, 75, 0);
+        do wall_generator(7, 3, 175, 75, 1);
+        do wall_generator(10, 3, 350, 125, 1);
+        
+        do wall_generator(11, 2, 25, 150, 0);
+        do wall_generator(13, 1, 50, 175, 0);
+
+        do update_wall();
+        do update_location();
+           
+        return this;
+    }
+    constructor GunGame new_level4(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(25, 100, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(400, 100);
+        
+        do init_all_array(5, 4, 25);
+        let generate_gap = 100;
+        let generate_cnt = 2;
+
+        let location = Vector.new(100, 50);
+        let location_array[0] = location;
+        let location = Vector.new(200, 50);
+        let location_array[1] = location;
+        let location = Vector.new(150, 150);
+        let location_array[2] = location;
+        let location = Vector.new(250, 150);
+        let location_array[3] = location;
+
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+
+        do wall_generator(4, 8, 75, 18, 1);
+        do wall_generator(13, 8, 300, 18, 1);
+        do wall_generator(22, 1, 225, 100, 1);
+
+        do update_wall();
+        do update_location();
+           
+        return this;
+    }
+    constructor GunGame new_level5(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(225, 25, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(225, 160);
+        
+        do init_all_array(5, 5, 25);
+        let generate_gap = 100;
+        let generate_cnt = 3;
+
+        let location = Vector.new(225, 65);
+        let location_array[0] = location;
+        let location = Vector.new(200, 90);
+        let location_array[1] = location;
+        let location = Vector.new(250, 90);
+        let location_array[2] = location;
+        let location = Vector.new(212, 110);
+        let location_array[3] = location;
+        let location = Vector.new(238, 110);
+        let location_array[4] = location;
+
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+
+        do wall_generator(4, 1, 100, 60, 0);
+        do wall_generator(5, 1, 100, 110, 0);
+        do wall_generator(6, 1, 100, 160, 0);
+        do wall_generator(7, 1, 350, 60, 0);
+        do wall_generator(8, 1, 350, 110, 0);
+        do wall_generator(9, 1, 350, 160, 0);
+        
+        do update_wall();
+        do update_location();
+           
+        return this;
+    }
+    constructor GunGame new_level6(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(25, 25, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(400, 160);
+        
+        do init_all_array(5, 6, 25);
+        let generate_gap = 100;
+        let generate_cnt = 2;
+
+        let location = Vector.new(385, 50);
+        let location_array[0] = location;
+        let location = Vector.new(415, 50);
+        let location_array[1] = location;
+        let location = Vector.new(400, 60);
+        let location_array[2] = location;
+        let location = Vector.new(50, 140);
+        let location_array[3] = location;
+        let location = Vector.new(35, 150);
+        let location_array[4] = location;
+        let location = Vector.new(65, 150);
+        let location_array[5] = location;
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+
+        do wall_generator(4, 3, 225, 50, 2);
+        do wall_generator(7, 3, 275, 100, 2);
+        do wall_generator(10, 1, 250, 75, 3);
+        do wall_generator(11, 1, 200, 125, 3);
+ 
+        do update_wall();
+        do update_location();
+
+        return this;
+    }
+    constructor GunGame new_level7(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(310, 160, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(175, 160);
+        
+        do init_all_array(5, 7, 25);
+        let generate_gap = 100;
+        let generate_cnt = 2;
+
+        let location = Vector.new(240, 160);
+        let location_array[0] = location;
+        let location = Vector.new(240, 140);
+        let location_array[1] = location;
+        let location = Vector.new(240, 120);
+        let location_array[2] = location;
+        let location = Vector.new(240, 100);
+        let location_array[3] = location;
+        let location = Vector.new(425, 90);
+        let location_array[4] = location;
+        let location = Vector.new(120, 120);
+        let location_array[5] = location;
+        let location = Vector.new(25, 25);
+        let location_array[6] = location;
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+        
+        do wall_generator(4, 5, 280, 75, 1);
+
+        do update_wall();
+        do update_location();
+
+        return this;
+    }
+    constructor GunGame new_level8(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(120, 80, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(400, 160);
+        
+        do init_all_array(5, 8, 25);
+        let generate_gap = 100;
+        let generate_cnt = 2;
+
+        let location = Vector.new(360, 120);
+        let location_array[0] = location;
+        let location = Vector.new(300, 185);
+        let location_array[1] = location;
+        let location = Vector.new(120, 185);
+        let location_array[2] = location;
+        let location = Vector.new(25, 80);
+        let location_array[3] = location;
+        let location = Vector.new(170, 120);
+        let location_array[4] = location;
+        let location = Vector.new(195, 70);
+        let location_array[5] = location;
+        let location = Vector.new(220, 120);
+        let location_array[6] = location;
+        let location = Vector.new(245, 70);
+        let location_array[7] = location;
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+        
+        do wall_generator(5, 1, 300, 155, 0);
+        do wall_generator(6, 1, 120, 155, 0);
+        do wall_generator(7, 1, 55, 80, 0);
+        do wall_generator(8, 1, 225, 55, 0);
+        do wall_generator(9, 2, 400, 70, 0);
+
+        do update_wall();
+        do update_location();
+
+        return this;
+    }
+
+    method void free() {
+        do Memory.deAlloc(this); return;
+    }
+    method void init_all_array(int bullet_cnt, int zombie_cnt, int wall_cnt) {
+        let bullet_num = bullet_cnt; let bullet_array = Array.new(bullet_num);
+        do init_array(bullet_num, bullet_array);
+        let zombie_num = zombie_cnt; let zombie_array = Array.new(zombie_num);
+        do init_array(zombie_num, zombie_array);
+        let wall_num = wall_cnt; let wall_array = Array.new(wall_num);
+        do init_array(wall_num, wall_array);
+
+        let location_num = zombie_cnt; let location_array = Array.new(location_num);
+        do init_array(location_num,location_array);
+        return;
+    }
+    method void init_array(int n, Array arr) {
+        var int i;
+        let i = 0;
+        while(i < n) {
+            let arr[i] = null;
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method Player run() {
+        var int key;
+        var int i;
+        var Bullet bullet;
+        var Zombie zombie;
+        var Wall wall;
+        var Vector location;
+        do Canvas.draw_game_border();
+        do Output.moveCursor(20, 0);
+        do Output.printString("Your Life:");
+        do Output.moveCursor(21, 0);
+        do Output.printString("Refractory Time:");
+        do Output.moveCursor(20, 25);
+        do Output.printString("Kill number:");
+        do Output.moveCursor(21, 25);
+        do Output.printString("Counter:");
+
+        while(true) {
+            let key = Keyboard.keyPressed();
+            if(key = 140) {return null;}
+            if(Math_f.mod(game_time, 25) = 0) {
+                do Canvas.draw_ladder(ladder.x(), ladder.y(), true);
+                do Canvas.draw_blood_type1(300, 50, true);
+                do Canvas.draw_blood_type1(123, 134, true);
+                do Canvas.draw_blood_type1(12, 35, true);
+                do Canvas.draw_blood_type1(242, 97, true);
+                do Canvas.draw_blood_type2(98, 78, true);
+                do Canvas.draw_blood_type2(186, 6, true);
+                do Canvas.draw_blood_type2(65, 179, true);
+                do Canvas.draw_blood_type2(402, 23, true);
+                do update_wall();
+                do update_location();
+            }
+            if((Math_f.abs(player.x() - ladder.x()) < 5) & (Math_f.abs(player.y() - ladder.y()) < 5)) {
+                return player;
+            }
+            let game_time = game_time + 1;
+            do Output.moveCursor(21, 33);
+            do Output.printInt(game_time);
+            if(Math_f.mod(game_time, generate_gap) = 0) {
+                let location = location_array[Math_f.mod(game_time / generate_gap, location_num)];
+                do zombie_generator(location.x(), location.y(), generate_cnt);
+                let i = i + 1;
+            }
+            while(game_time = 10000) {let game_time = game_time - 10000;}
+            
+            do player_move();
+            do Output.moveCursor(20, 10);
+            do Output.printInt(player.life());
+            do Output.moveCursor(20, 37);
+            do Output.printInt(player.score());
+            if(player.life() < 1) {
+                //do player.appear(false);
+                return player;
+            }
+            do player_shoot();
+            do Output.moveCursor(21, 16);
+            do Output.printInt(player.refractory());
+
+            let i = 0;
+            while(i < bullet_num) {
+                while((i < bullet_num) & (bullet_array[i] = null)) {
+                    let i = i + 1;
+                }
+                if(i < bullet_num) {
+                    let bullet = bullet_array[i];
+                    if(bullet_move(bullet) = false) {
+                        do bullet.appear(false);
+                        do bullet.free();
+                        let bullet_array[i] = null;
+                    }
+                }
+                let i = i + 1;
+            }
+            let i = 0;
+            while(i < zombie_num) {
+                while((i < zombie_num) & (zombie_array[i] = null)) {
+                    let i = i + 1;
+                }
+                if(i < zombie_num) {
+                    do zombie_move(zombie_array[i]);
+                }
+                let i = i + 1;
+            }
+            
+            do Sys.wait(10);
+        }
+        return player;
+    }
+
+    method void generate_zombie(int x, int y) {
+        var int i;
+        var Zombie zombie;
+        let i = 0;
+        while((i < zombie_num)) {
+            if(zombie_array[i] = null) {
+                let zombie = Zombie.new(x, y);
+                let zombie_array[i] = zombie;
+                let i = zombie_num;
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+    method void zombie_generator(int center_x, int center_y, int n) {
+        var int i;
+        var int x, y;
+        let i = 0;
+        while(i < n) {
+            let x = center_x + i; let y = center_y + i;
+            while(x > 450) {let x = x - 450;}
+            while(y > 200) {let y = y - 200;}
+            do generate_zombie(x, y);
+            let i = i + 1;
+        }
+        return;
+    }
+    method void wall_generator(int id, int n, int x, int y, int type) {
+        var Wall wall;
+        var int i;
+        while(i < n) {
+            if(type = 0) {let wall = Wall.new(x + (i * 25), y, 25, 25);}
+            if(type = 1) {let wall = Wall.new(x, y + (i * 25), 25, 25);}
+            if(type = 2) {let wall = Wall.new(x - (i * 25), y + (i * 25), 25, 25);}
+            if(type = 3) {let wall = Wall.new(x + (i * 25), y + (i * 25), 25, 25);}
+            let wall_array[i + id] = wall;
+            let i = i + 1;
+        }
+        return;
+    }
+    method void update_wall() {
+        var int i;
+        var Wall wall;
+        let i = 0;
+        while(i < wall_num) {
+            while((i < wall_num) & (wall_array[i] = null)) {
+                let i = i + 1;
+            }
+            if(i < wall_num) {
+                let wall = wall_array[i];
+                do wall.appear(true); 
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+    method void update_location() {
+        var int i;
+        var Vector location;
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            if((location = null) = false) {
+                do Canvas.draw_crack(location.x(), location.y(), true);
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void player_move() {
+        var int key;
+        var int next_dir_x, next_dir_y;
+        var int i;
+        var bool stop, retr;
+        var Zombie zombie;
+        var Wall wall;
+        var Vector vec;
+        let key = Keyboard.keyPressed();
+        if(key = 130) {
+            let next_dir_x = -1; let next_dir_y = 0;
+        }
+        if(key = 132) {
+            let next_dir_x = 1; let next_dir_y = 0;
+        }
+        if(key = 131) {
+            let next_dir_x = 0; let next_dir_y = -1;
+        }
+        if(key = 133) {
+            let next_dir_x = 0; let next_dir_y = 1;
+        }
+        let stop = false;
+        let retr = true;
+        let zombie = player.collide_with_zombie(zombie_array, zombie_num);
+        let wall = player.collide_with_wall(wall_array, wall_num);
+        if((zombie = null) = false) {
+            if((wall = null) = false) {
+                if(Math_f.norm(player.x() - zombie.x()) = Math_f.norm(wall.x() - player.x())) {let retr = false;}
+                if(Math_f.norm(player.y() - zombie.y()) = Math_f.norm(wall.y() - player.y())) {let retr = false;}
+            }
+            if(retr = true){
+                do player.retrieve(Math_f.norm(player.x() - zombie.x()), Math_f.norm(player.y() - zombie.y()));
+            }
+        }
+        if((player.dir_x() = next_dir_x) & (player.dir_y() = next_dir_y)) {
+            let i = 0;
+            while(i < 3) {
+                let zombie = player.collide_with_zombie(zombie_array, zombie_num);
+                let wall = player.collide_with_wall(wall_array, wall_num);
+                let retr = true;
+                if((zombie = null) = false) {
+                     if((wall = null) = false) {
+                         if(Math_f.norm(player.x() - zombie.x()) = Math_f.norm(wall.x() - player.x())) {let retr = false;}
+                         if(Math_f.norm(player.y() - zombie.y()) = Math_f.norm(wall.y() - player.y())) {let retr = false;}
+                     }
+                     if(retr = true){
+                         do player.retrieve(Math_f.norm(player.x() - zombie.x()), Math_f.norm(player.y() - zombie.y()));
+                     }
+                }
+                let wall = player.collide_with_wall(wall_array, wall_num);
+                if((wall = null) = false) {
+                    let vec = wall.vector_to_this(player.x(), player.y(), player.radius() - 1);
+                    if((player.dir_x() = vec.x()) & (player.dir_y() = vec.y())) {let stop = true;}
+                    do vec.free();
+                }
+                if(stop = false) {
+                    do player.move();
+                }
+                let i = i + 1;
+            }
+        }
+        if((key > 129) & (key < 134)){
+            do player.turn(next_dir_x, next_dir_y);
+        }
+        return;
+    }
+    
+    method bool bullet_move(Bullet bullet) {
+        var int i, j;
+        var bool stop;
+        var Zombie zombie;
+        let stop = false;
+
+        while((i < 50) & (stop = false)) {
+            let stop = false;
+            let zombie = bullet.collide_with_zombie(zombie_array, zombie_num);
+            if((zombie = null) = false) {
+                if(zombie.life() = 0) {
+                    do player.add_score(1);
+                    do zombie.appear(false);
+                    do zombie.free();
+                    let j = 0;
+                    while((zombie = zombie_array[j]) = false) {
+                        let j = j + 1;
+                    }            
+                    let zombie_array[j] = null;
+                    let stop = true;
+                 }
+                 let j = 0;
+                 while((j < 3) & (stop = false)) {
+                     do zombie.retrieve(bullet.dir_x(), bullet.dir_y());
+                     let j = j + 1;
+                 }
+                 let stop = true;
+            }
+            if(bullet.collide_with_wall(wall_array, wall_num)) {
+                let stop = true;
+            }
+            if(stop = true) {
+                do bullet.appear(false);
+                do bullet.free();
+                return false;
+            }
+            if(bullet.move() = false) {
+               do bullet.appear(false);
+               do bullet.free();
+               return false; 
+            }
+            let i = i + 1;
+        }
+        return true;
+    }
+    method void zombie_move(Zombie zombie) {
+        var int i;
+        var Zombie zombie_cmp;
+        var Wall wall;
+        var bool stop, retr;
+        var Vector vec;
+        do zombie_track(zombie, (game_time) - (zombie.x() + zombie.y()));
+        //do zombie_random_turn(zombie);
+        let i = 0;
+        let stop = false;
+        while(i < 1) {
+            if(zombie.collide_with_player(player)) {
+                let stop = true;
+            }
+            let zombie_cmp = zombie.collide_with_zombie(zombie_array, zombie_num);
+            if((zombie_cmp = null) = false) {
+                let retr = true;
+                let wall = zombie.collide_with_wall(wall_array, wall_num);
+                if((wall = null) = false) {
+                     if(Math_f.norm(zombie.x() - zombie_cmp.x()) = Math_f.norm(wall.x() - zombie.x())) {let retr = false;}
+                     if(Math_f.norm(zombie.y() - zombie_cmp.y()) = Math_f.norm(wall.y() - zombie.y())) {let retr = false;}
+                }
+                if(retr = true) {
+                     do zombie.retrieve(Math_f.norm(zombie.x() - zombie_cmp.x()), Math_f.norm(zombie.y() - zombie_cmp.y()));
+                } 
+            }
+            let wall = zombie.collide_with_wall(wall_array, wall_num);
+            if((wall = null) = false) {
+                 let vec = wall.vector_to_this(zombie.x(), zombie.y(), zombie.radius() - 2);
+                 if((zombie.dir_x() = vec.x()) & (zombie.dir_y() = vec.y())) {let stop = true;}
+                 do vec.free();
+            }
+            if(stop = false) {
+                 do zombie.move();
+            }
+            let i = i + 1;
+        }        
+        return;
+    }
+    method void zombie_track(Zombie zombie, int t) {
+        if(t < 0) {
+              if(zombie.x() > player.x()) {do zombie.turn(-1, 0);}
+              if(zombie.x() < player.x()) {do zombie.turn(1, 0);}
+              if(zombie.y() > player.y()) {do zombie.turn(0, -1);}
+              if(zombie.y() < player.y()) {do zombie.turn(0, 1);}
+        }
+        else {
+              if(zombie.y() > player.y()) {do zombie.turn(0, -1);}
+              if(zombie.y() < player.y()) {do zombie.turn(0, 1);}
+              if(zombie.x() > player.x()) {do zombie.turn(-1, 0);}
+              if(zombie.x() < player.x()) {do zombie.turn(1, 0);}
+        }
+        return;
+    }
+    
+    method void player_shoot() {
+        var int key;
+        var Bullet bullet;
+        var int i, j;
+        do player.cooldown(50);
+        let key = Keyboard.keyPressed();
+        if((key = 32) & (player.refractory() = 0)) {
+            let i = 0;
+            while((i < bullet_num) & ((bullet_array[i] = null) = false)) {
+                let i = i + 1;
+            }
+            let bullet = Bullet.new(player.x() + (player.dir_x()*18), player.y() + (player.dir_y()*18), 
+                    player.dir_x(), player.dir_y());
+            let bullet_array[i] = bullet;
+            do player.set_refractory(500);
+        }
+        return;
+    }
+
+    method void zombie_random_turn(Zombie zombie) {
+        if(Math_f.abs(zombie.x() - (game_time / 10)) < 10) {
+            do zombie.turn(-1, 0);
+        }
+        if(Math_f.abs(zombie.x() - (game_time / 20)) < 5) {
+            do zombie.turn(1, 0);
+        }
+        if(Math_f.abs(zombie.y() - (game_time / 10)) < 10) {
+            do zombie.turn(0, -1);
+        }
+        if(Math_f.abs(zombie.x() - (game_time / 20)) < 5) {
+            do zombie.turn(0, 1);
+        }
+        return;
+    }
+}
