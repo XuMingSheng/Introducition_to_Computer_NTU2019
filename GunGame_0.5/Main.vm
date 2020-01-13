@@ -65,6 +65,10 @@ pop local 4
 push constant 0
 pop local 5
 label IF_FALSE4
+push constant 40
+pop local 2
+push constant 0
+pop local 3
 label IF_FALSE3
 push local 5
 push constant 3
