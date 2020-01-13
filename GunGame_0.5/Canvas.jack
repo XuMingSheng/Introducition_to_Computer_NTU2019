@@ -126,7 +126,7 @@ class Canvas{
         var int key;
         do Screen.setColor(false);
         do Screen.drawRectangle(0, 0, 511, 255);
-        do Output.moveCursor(10, 18);
+        do Output.moveCursor(10, 27);
         do Output.printString("You Win !!!");
         do Canvas.draw_button(55, 200, 210, 225);
         do Output.moveCursor(19, 8);

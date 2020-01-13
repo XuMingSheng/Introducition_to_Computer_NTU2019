@@ -33,7 +33,7 @@ eq
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
-push constant 8
+push constant 1
 pop local 4
 goto IF_END2
 label IF_FALSE2

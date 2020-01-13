@@ -13,7 +13,7 @@ class Main {
                 let life = 40; let score = 0;
             }
             if(mode = 1) {
-                if(level = 0) {let level = 8;}
+                if(level = 0) {let level = 1;}
                 else {
                     let level = level + 1;
                     do Canvas.next_level_scene(level);
