@@ -1876,12 +1876,12 @@ not
 call Canvas.draw_blood_type2 3
 pop temp 0
 push pointer 0
-call GunGame.update_wall 1
-pop temp 0
-push pointer 0
 call GunGame.update_location 1
 pop temp 0
 label IF_FALSE1
+push pointer 0
+call GunGame.update_wall_along_time 1
+pop temp 0
 push this 0
 call Player.x 1
 push this 8
@@ -2384,6 +2384,39 @@ add
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
+push constant 0
+return
+function GunGame.update_wall_along_time 2
+push argument 0
+pop pointer 0
+push this 7
+push this 5
+call Math_f.mod 2
+pop local 0
+push local 0
+push this 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push this 2
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+push constant 0
+not
+call Wall.appear 2
+pop temp 0
 push constant 0
 return
 function GunGame.update_location 2

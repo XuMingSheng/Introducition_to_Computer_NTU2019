@@ -432,9 +432,9 @@ class GunGame {
                 do Canvas.draw_blood_type2(186, 6, true);
                 do Canvas.draw_blood_type2(65, 179, true);
                 do Canvas.draw_blood_type2(402, 23, true);
-                do update_wall();
                 do update_location();
             }
+            do update_wall_along_time();
             if((Math_f.abs(player.x() - ladder.x()) < 5) & (Math_f.abs(player.y() - ladder.y()) < 5)) {
                 return player;
             }
@@ -546,6 +546,15 @@ class GunGame {
             }
             let i = i + 1;
         }
+        return;
+    }
+    method void update_wall_along_time() {
+        var int id;
+        var Wall wall;
+        let id = Math_f.mod(game_time, wall_num);
+        if(wall_array[id] = null) {return;}
+        let wall = wall_array[id];
+        do wall.appear(true);
         return;
     }
     method void update_location() {
