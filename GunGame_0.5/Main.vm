@@ -55,7 +55,7 @@ label IF_TRUE3
 call Canvas.select_level_scene 0
 pop local 4
 push local 4
-push constant 8
+push constant 9
 gt
 if-goto IF_TRUE4
 goto IF_FALSE4
@@ -168,11 +168,22 @@ call GunGame.new_level8 2
 pop local 0
 label IF_FALSE13
 push local 4
-push constant 0
-gt
+push constant 9
+eq
 if-goto IF_TRUE14
 goto IF_FALSE14
 label IF_TRUE14
+push local 2
+push local 3
+call GunGame.new_level9 2
+pop local 0
+label IF_FALSE14
+push local 4
+push constant 0
+gt
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
 push local 0
 call GunGame.run 1
 pop local 1
@@ -181,30 +192,30 @@ push constant 0
 eq
 push constant 0
 eq
-if-goto IF_TRUE15
-goto IF_FALSE15
-label IF_TRUE15
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
 push local 1
 call Player.life 1
 pop local 2
 push local 1
 call Player.score 1
 pop local 3
-label IF_FALSE15
+label IF_FALSE16
 push local 0
 call GunGame.free 1
 pop temp 0
 push local 1
 push constant 0
 eq
-if-goto IF_TRUE16
-goto IF_FALSE16
-label IF_TRUE16
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
 push constant 0
 pop local 4
 push constant 0
 pop local 5
-label IF_FALSE16
+label IF_FALSE17
 push local 2
 push constant 0
 lt
@@ -212,30 +223,30 @@ push local 2
 push constant 0
 eq
 or
-if-goto IF_TRUE17
-goto IF_FALSE17
-label IF_TRUE17
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
 call Canvas.game_over 0
 pop temp 0
 push constant 0
 pop local 4
 push constant 0
 pop local 5
-label IF_FALSE17
+label IF_FALSE18
 push local 4
-push constant 8
+push constant 9
 eq
-if-goto IF_TRUE18
-goto IF_FALSE18
-label IF_TRUE18
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
 call Canvas.win_scene 0
 pop temp 0
 push constant 0
 pop local 4
 push constant 0
 pop local 5
-label IF_FALSE18
-label IF_FALSE14
+label IF_FALSE19
+label IF_FALSE15
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0

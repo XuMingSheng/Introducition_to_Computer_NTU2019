@@ -376,6 +376,57 @@ class GunGame {
 
         return this;
     }
+    constructor GunGame new_level9(int l, int s) {
+        var Wall wall;
+        var Vector location;
+        var int i;
+        
+        let game_time = 0;
+        let player = Player.new(225, 50, l, s);
+        do player.appear(true);
+        let ladder = Vector.new(225, 160);
+        
+        do init_all_array(5, 9, 25);
+        let generate_gap = 100;
+        let generate_cnt = 2;
+
+        let location = Vector.new(225, 20);
+        let location_array[0] = location;
+        let location = Vector.new(155, 35);
+        let location_array[1] = location;
+        let location = Vector.new(295, 35);
+        let location_array[2] = location;
+        let location = Vector.new(120, 50);
+        let location_array[3] = location;
+        let location = Vector.new(330, 50);
+        let location_array[4] = location;
+        let location = Vector.new(155, 65);
+        let location_array[5] = location;
+        let location = Vector.new(295, 65);
+        let location_array[6] = location;
+        let location = Vector.new(225, 80);
+        let location_array[7] = location;
+        let location = Vector.new(225, 110);
+        let location_array[8] = location;
+
+        let i = 0;
+        while(i < location_num) {
+            let location = location_array[i];
+            do zombie_generator(location.x(), location.y(), 1);
+            let i = i + 1;
+        }  
+
+        do wall_generator(0, 1, ladder.x() - 25, ladder.y(), 0);
+        do wall_generator(1, 1, ladder.x() + 25, ladder.y(), 0);
+        do wall_generator(2, 1, ladder.x(), ladder.y() - 25, 0);
+        do wall_generator(3, 1, ladder.x(), ladder.y() + 25, 0);
+        
+
+        do update_wall();
+        do update_location();
+
+        return this;
+    }
 
     method void free() {
         do Memory.deAlloc(this); return;
@@ -449,8 +500,9 @@ class GunGame {
             while(game_time = 10000) {let game_time = game_time - 10000;}
             
             do player_move();
-            do Output.moveCursor(20, 10);
-            do Output.printInt(player.life());
+            do Output.moveCursor(20, 10); 
+            do Output.printInt(player.life() / 10);
+            do Output.printInt(Math_f.mod(player.life(), 10));
             do Output.moveCursor(20, 37);
             do Output.printInt(player.score());
             if(player.life() < 1) {

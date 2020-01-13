@@ -1586,6 +1586,229 @@ call GunGame.update_location 1
 pop temp 0
 push pointer 0
 return
+function GunGame.new_level9 3
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 7
+push constant 225
+push constant 50
+push argument 0
+push argument 1
+call Player.new 4
+pop this 0
+push this 0
+push constant 0
+not
+call Player.appear 2
+pop temp 0
+push constant 225
+push constant 160
+call Vector.new 2
+pop this 8
+push pointer 0
+push constant 5
+push constant 9
+push constant 25
+call GunGame.init_all_array 4
+pop temp 0
+push constant 100
+pop this 10
+push constant 2
+pop this 11
+push constant 225
+push constant 20
+call Vector.new 2
+pop local 1
+push constant 0
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 155
+push constant 35
+call Vector.new 2
+pop local 1
+push constant 1
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 295
+push constant 35
+call Vector.new 2
+pop local 1
+push constant 2
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 3
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 330
+push constant 50
+call Vector.new 2
+pop local 1
+push constant 4
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 155
+push constant 65
+call Vector.new 2
+pop local 1
+push constant 5
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 295
+push constant 65
+call Vector.new 2
+pop local 1
+push constant 6
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 225
+push constant 80
+call Vector.new 2
+pop local 1
+push constant 7
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 225
+push constant 110
+call Vector.new 2
+pop local 1
+push constant 8
+push this 12
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 12
+add
+pop pointer 1
+push that 0
+pop local 1
+push pointer 0
+push local 1
+call Vector.x 1
+push local 1
+call Vector.y 1
+push constant 1
+call GunGame.zombie_generator 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+push constant 0
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+sub
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 1
+push constant 1
+push this 8
+call Vector.x 1
+push constant 25
+add
+push this 8
+call Vector.y 1
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 2
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+sub
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+push constant 3
+push constant 1
+push this 8
+call Vector.x 1
+push this 8
+call Vector.y 1
+push constant 25
+add
+push constant 0
+call GunGame.wall_generator 6
+pop temp 0
+push pointer 0
+call GunGame.update_wall 1
+pop temp 0
+push pointer 0
+call GunGame.update_location 1
+pop temp 0
+push pointer 0
+return
 function GunGame.free 0
 push argument 0
 pop pointer 0
@@ -1968,6 +2191,14 @@ call Output.moveCursor 2
 pop temp 0
 push this 0
 call Player.life 1
+push constant 10
+call Math.divide 2
+call Output.printInt 1
+pop temp 0
+push this 0
+call Player.life 1
+push constant 10
+call Math_f.mod 2
 call Output.printInt 1
 pop temp 0
 push constant 20
