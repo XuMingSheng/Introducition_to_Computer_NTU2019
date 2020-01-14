@@ -1,18 +1,47 @@
 
 class Canvas{
     function void draw_game_border() {
+        var int i;
         do Screen.setColor(true);
         do Screen.drawRectangle(0, 0, 455, 5);
         do Screen.drawRectangle(455, 0, 460, 210);
         do Screen.drawRectangle(0, 205, 455, 210);
         do Screen.drawRectangle(0, 0, 5, 205);
+        let i = 0;
+        while(i < 20) {
+            do Screen.drawLine(511, i * 10, 460, 15 + (i * 10));
+            let i = i + 1;
+        }
         return;
     }
     function int initial_scene() {
         var int key, mode;
+        var Zombie zombie;
+        var Player player;
+
         do Screen.setColor(false);
-        do Screen.drawRectangle(0, 0, 511, 255); 
-        let key = 0;
+        do Screen.drawRectangle(0, 0, 511, 255);
+        
+        do Canvas.draw_big_gun(240, 20, true);
+        do Canvas.draw_letter_G(180, 20, true);
+        do Canvas.draw_letter_A(250, 20, false);
+        do Canvas.draw_letter_M(315, 20, false);
+        do Canvas.draw_letter_E(380, 20, false);
+
+        let player = Player.new(260, 110, 0, 0);
+        do player.appear(true);
+        do player.free();
+        let zombie = Zombie.new(98, 34);
+        do zombie.draw_ventral_view(true, 410, 230);
+        do zombie.draw_left_lateral_view(true, 393, 200);
+        do zombie.draw_left_lateral_view(true, 15, 160);
+        do zombie.draw_right_lateral_view(true, 122, 94);
+        do zombie.draw_right_lateral_view(true, 154, 235);
+        do zombie.draw_dorsal_view(true, 432, 178);
+        do zombie.draw_dorsal_view(true, 376, 167);
+        do zombie.free();
+        
+
         do Canvas.draw_button(50, 100, 240, 130);
         do Output.moveCursor(10, 8);
         do Output.printString("START (Press [Enter])");
@@ -22,7 +51,9 @@ class Canvas{
         do Canvas.draw_button(50, 190, 270, 220);
         do Output.moveCursor(18, 8);
         do Output.printString("INSTRUCTIONS (Press [i])");
+        
         let mode = 0;
+        let key = 0;
         while((key = 0)) {
             let key = Keyboard.keyPressed();
             if(key = 128) {let mode = 1;}
@@ -107,12 +138,12 @@ class Canvas{
     function void game_over() {
         var int key;
         do Screen.setColor(false);
-        //do Screen.drawRectangle(0, 0, 511, 255);
+        do Screen.drawRectangle(0, 0, 511, 255);
         do Screen.setColor(true);
         do Output.moveCursor(10, 18);
         do Output.printString("Game Over!!!");
         do Output.moveCursor(14, 18);
-        do Output.printString("Press ENTER to restart.");
+        do Output.printString("Press [ENTER] to restart.");
         let key = 0;
         while((key = 128) = false) {
             let key = Keyboard.keyPressed();           
@@ -260,6 +291,54 @@ class Canvas{
         do Screen.drawRectangle(lx - 5, ly - 5, rx + 5, ry + 5);
         do Screen.setColor(false);
         do Screen.drawRectangle(lx, ly, rx, ry);
+        return;
+    }
+    function void draw_big_gun(int x, int y, bool t) {
+        do Screen.setColor(t);
+        do Screen.drawRectangle(x, y, x + 200, y + 50);
+        do Screen.drawRectangle(x + 150, y + 50, x + 210, y + 80);
+        do Screen.drawRectangle(x + 160, y + 80, x + 220, y + 110);
+        do Screen.drawRectangle(x + 170, y + 110, x + 230, y + 140);
+        do Screen.drawCircle(x + 150, y + 50, 30);
+        do Screen.drawCircle(x + 200, y + 25, 20);
+        do Screen.drawCircle(x + 15, y, 10);
+        return;
+    }
+    function void draw_letter_G(int x, int y, bool t) {
+        do Screen.setColor(t);
+        do Screen.drawRectangle(x + 10, y, x + 49, y + 10);
+        do Screen.drawRectangle(x, y + 10, x + 9, y + 50);
+        do Screen.drawRectangle(x , y + 40, x + 49, y + 50);
+        do Screen.drawRectangle(x + 30, y + 20, x + 50, y + 30);
+        do Screen.drawRectangle(x + 40, y + 30, x + 50, y + 50);
+        return;
+    }
+    function void draw_letter_A(int x, int y, bool t) {
+        do Screen.setColor(t);
+        do Screen.drawRectangle(x + 20, y, x + 30, y + 10);
+        do Screen.drawRectangle(x + 10 , y + 10, x + 20, y + 20);
+        do Screen.drawRectangle(x + 30 , y + 10, x + 40, y + 20);
+        do Screen.drawRectangle(x , y + 20, x + 10, y + 50);
+        do Screen.drawRectangle(x + 40, y + 20, x + 50, y + 50);
+        do Screen.drawRectangle(x , y + 30, x + 50, y + 40);   
+        return;
+    }
+    function void draw_letter_M(int x, int y, bool t) {
+        do Screen.setColor(t);
+        do Screen.drawRectangle(x, y, x + 10, y + 50);
+        do Screen.drawRectangle(x + 10 , y + 10, x + 20, y + 20);
+        do Screen.drawRectangle(x + 30 , y + 10, x + 40, y + 20);
+        do Screen.drawRectangle(x + 20 , y + 20, x + 30, y + 30);
+        do Screen.drawRectangle(x + 40, y, x + 50, y + 50);      
+         return;
+    }
+
+    function void draw_letter_E(int x, int y, bool t) {
+        do Screen.setColor(t);
+        do Screen.drawRectangle(x, y, x + 9, y + 49);
+        do Screen.drawRectangle(x + 10, y, x + 49, y + 9);
+        do Screen.drawRectangle(x + 10, y + 20, x + 29, y + 29);
+        do Screen.drawRectangle(x + 10, y + 40, x + 49, y + 49);
         return;
     }
 }
